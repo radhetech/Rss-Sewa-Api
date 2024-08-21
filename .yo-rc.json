@@ -1,0 +1,32 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "rssSewa",
+    "buildTool": "maven",
+    "cacheProvider": "no",
+    "creationTimestamp": 1723943763010,
+    "databaseType": "mongodb",
+    "devDatabaseType": null,
+    "enableHibernateCache": null,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": false,
+    "entities": [],
+    "feignClient": null,
+    "jhipsterVersion": "8.6.0",
+    "jwtSecretKey": "NDE3OGUzMmYzOWYyYjcwMjA2ZThlZmZiMDgwMGJkOWQxMDcwZWM1ZTc3YTE3ZGQyNDkwZGI5OTkwNTlmZTE1OWUwZTkxOTNlNmRhNDZhOTRlOGRhNTc0OWRhYjcwOWRlMjY0NWNiNzFkNDg5ZDA3ZDhmYTYxN2RmZDMzMzEwZTk=",
+    "messageBroker": false,
+    "nativeLanguage": "en",
+    "packageName": "com.rss",
+    "prodDatabaseType": null,
+    "reactive": false,
+    "searchEngine": false,
+    "serverPort": null,
+    "serverSideOptions": [],
+    "serviceDiscoveryType": false,
+    "skipClient": true,
+    "syncUserWithIdp": null,
+    "testFrameworks": [],
+    "websocket": false
+  }
+}
