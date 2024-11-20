@@ -1,10 +1,20 @@
 package com.rss.web.rest;
 
+import com.rss.domain.Jilla;
+import com.rss.domain.SevaVasti;
+import com.rss.domain.Shakha;
+import com.rss.domain.Taluka;
 import com.rss.domain.User;
+import com.rss.domain.Vibhag;
 import com.rss.repository.UserRepository;
 import com.rss.security.SecurityUtils;
 import com.rss.service.MailService;
+import com.rss.service.SevaVastiService;
+import com.rss.service.ShakhaService;
+import com.rss.service.TalukaService;
+import com.rss.service.JillaService;
 import com.rss.service.UserService;
+import com.rss.service.VibhagService;
 import com.rss.service.dto.AdminUserDTO;
 import com.rss.service.dto.PasswordChangeDTO;
 import com.rss.web.rest.errors.*;
@@ -40,10 +50,25 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final VibhagService vibhagService;
+
+    private final JillaService jillaService;
+
+    private final TalukaService talukaService;
+
+    private final SevaVastiService sevaVastiService;
+
+    private final ShakhaService shakhaService;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.vibhagService = vibhagService;
+        this.jillaService = jillaService;
+        this.talukaService = talukaService;
+        this.sevaVastiService = sevaVastiService;
+        this.shakhaService = shakhaService;
     }
 
     /**
@@ -177,4 +202,36 @@ public class AccountResource {
             password.length() > ManagedUserVM.PASSWORD_MAX_LENGTH
         );
     }
+
+    @GetMapping("/getVibhag")
+    public List<Vibhag> getVibhag() {
+        return vibhagService
+            .getVibhagList()
+            .stream().toList();
+    }
+    @GetMapping("/getJilla/{vibhagId}")
+    public List<Jilla> getJilla(@PathVariable("vibhagId") String vibhagId) {
+        return jillaService
+            .getJillaListByVibhagId(vibhagId)
+            .stream().toList();
+    }
+    @GetMapping("/getTaluka/{jillaId}")
+    public List<Taluka> getTaluka(@PathVariable("jillaId") String jillaId) {
+        return talukaService
+            .getTalukaListByJillaId(jillaId)
+            .stream().toList();
+    }
+    @GetMapping("/getSevaVasti/{talukaId}")
+    public List<SevaVasti> getSevaVasti(@PathVariable("talukaId") String talukaId) {
+        return sevaVastiService
+            .getSevaVastiListByTalukaId(talukaId)
+            .stream().toList();
+    }
+    @GetMapping("/getShakha/{vastiId}")
+    public List<Shakha> getShakha(@PathVariable("vastiId") String vastiId) {
+        return shakhaService
+            .getShakhaListByVastiId(vastiId)
+            .stream().toList();
+    }
+    
 }
