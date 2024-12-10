@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 public class Jilla implements Serializable {
 
     @Id
-    private String id;
+    private String jillaId;
 
     @Size(max = 50)
     @NotNull
@@ -28,14 +28,14 @@ public class Jilla implements Serializable {
     @Field("IsBhag")
     private String IsBhag;
 
-    
-    public String getId() {
-        return id;
+    public String getJillaId() {
+        return jillaId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setJillaId(String jillaId) {
+        this.jillaId = jillaId;
     }
+
 
     public String getJillaName() {
         return jillaName;
@@ -71,7 +71,7 @@ public class Jilla implements Serializable {
         if (!(o instanceof Jilla)) {
             return false;
         }
-        return id != null && id.equals(((Jilla) o).id);
+        return jillaId != null && jillaId.equals(((Jilla) o).jillaId);
     }
 
     @Override
@@ -84,13 +84,12 @@ public class Jilla implements Serializable {
     @Override
     public String toString() {
         return "Jilla{" +
-            "id='" + id + '\'' +
+            "jillaId='" + jillaId + '\'' +
             ",jillaName='" + jillaName + '\'' +
             ",vibhagID='" + vibhagID + '\'' +
             ",IsBhag='" + IsBhag + '\'' +
             "}";
     }
-
 
 
 }

@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 public class Shakha implements Serializable {
 
     @Id
-    private String id;
+    private String shakhaId;
 
     @Size(max = 50)
     @NotNull
@@ -25,14 +25,14 @@ public class Shakha implements Serializable {
     @Field("sevaVastiId")
     private String sevaVastiId;
 
-    public String getId() {
-        return id;
+    public String getShakhaId() {
+        return shakhaId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setShakhaId(String shakhaId) {
+        this.shakhaId = shakhaId;
     }
-
+ 
     public String getShakhaName() {
         return shakhaName;
     }
@@ -57,7 +57,7 @@ public class Shakha implements Serializable {
         if (!(o instanceof Shakha)) {
             return false;
         }
-        return id != null && id.equals(((Shakha) o).id);
+        return shakhaId != null && shakhaId.equals(((Shakha) o).shakhaId);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Shakha implements Serializable {
     @Override
     public String toString() {
         return "Shakha{" +
-                "id='" + id + '\'' +
+                "shakhaId='" + shakhaId + '\'' +
                 ",shakhaName='" + shakhaName + '\'' +
                 ",sevaVastiId='" + sevaVastiId + '\'' +
                 "}";

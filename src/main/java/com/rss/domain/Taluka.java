@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 public class Taluka implements Serializable {
 
     @Id
-    private String id;
+    private String talukaId;
 
     @Size(max = 50)
     @NotNull
@@ -28,12 +28,12 @@ public class Taluka implements Serializable {
     @Field("isNagar")
     private String isNagar;
 
-    public String getId() {
-        return id;
+    public String getTalukaId() {
+        return talukaId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTalukaId(String talukaId) {
+        this.talukaId = talukaId;
     }
 
     public String getTalukaName() {
@@ -69,7 +69,7 @@ public class Taluka implements Serializable {
         if (!(o instanceof Taluka)) {
             return false;
         }
-        return id != null && id.equals(((Taluka) o).id);
+        return talukaId != null && talukaId.equals(((Taluka) o).talukaId);
     }
 
     @Override
@@ -83,13 +83,12 @@ public class Taluka implements Serializable {
     @Override
     public String toString() {
         return "Taluka{" +
-                "id='" + id + '\'' +
+                "talukaId='" + talukaId + '\'' +
                 ",talukaName='" + talukaName + '\'' +
                 ",jillaId='" + jillaId + '\'' +
                 ",isNagar='" + isNagar + '\'' +
                 "}";
     }
-
 
 
 }

@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 public class SevaVasti implements Serializable {
 
     @Id
-    private String id;
+    private String sevaVastiId;
 
     @Size(max = 50)
     @NotNull
@@ -25,12 +25,13 @@ public class SevaVasti implements Serializable {
     @Field("talukaId")
     private String talukaId;
 
-    public String getId() {
-        return id;
+
+    public String getSevaVastiId() {
+        return sevaVastiId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSevaVastiId(String sevaVastiId) {
+        this.sevaVastiId = sevaVastiId;
     }
 
     public String getSevaVastiName() {
@@ -57,7 +58,7 @@ public class SevaVasti implements Serializable {
         if (!(o instanceof SevaVasti)) {
             return false;
         }
-        return id != null && id.equals(((SevaVasti) o).id);
+        return sevaVastiId != null && sevaVastiId.equals(((SevaVasti) o).sevaVastiId);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class SevaVasti implements Serializable {
     @Override
     public String toString() {
         return "SevaVasti{" +
-                "id='" + id + '\'' +
+                "sevaVastiId='" + sevaVastiId + '\'' +
                 ",sevaVastiName='" + sevaVastiName + '\'' +
                 ",talukaId='" + talukaId + '\'' +
                 "}";
