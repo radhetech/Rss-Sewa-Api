@@ -25,6 +25,9 @@ public class Taluka implements Serializable {
     @Field("jillaId")
     private String jillaId;
 
+    @Field("isNagar")
+    private String isNagar;
+
     public String getId() {
         return id;
     }
@@ -48,6 +51,15 @@ public class Taluka implements Serializable {
     public void setJillaId(String jillaId) {
         this.jillaId = jillaId;
     }
+
+    public String getIsNagar() {
+        return isNagar;
+    }
+
+    public void setIsNagar(String isNagar) {
+        this.isNagar = isNagar;
+    }
+    
 
     @Override
     public boolean equals(Object o) {
@@ -74,7 +86,10 @@ public class Taluka implements Serializable {
                 "id='" + id + '\'' +
                 ",talukaName='" + talukaName + '\'' +
                 ",jillaId='" + jillaId + '\'' +
+                ",isNagar='" + isNagar + '\'' +
                 "}";
     }
+
+
 
 }

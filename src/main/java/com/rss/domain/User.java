@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rss.config.Constants;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
@@ -48,7 +49,7 @@ public class User extends AbstractAuditingEntity<String> implements Serializable
 
     @Email
     @Size(min = 5, max = 254)
-    @Indexed
+    @Null
     private String email;
 
     private boolean activated = false;

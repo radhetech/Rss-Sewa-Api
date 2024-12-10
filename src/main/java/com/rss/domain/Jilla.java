@@ -25,6 +25,9 @@ public class Jilla implements Serializable {
     @Field("vibhagID")
     private String vibhagID;
 
+    @Field("IsBhag")
+    private String IsBhag;
+
     
     public String getId() {
         return id;
@@ -50,6 +53,16 @@ public class Jilla implements Serializable {
         this.vibhagID = vibhagID;
     }
 
+    public String getIsBhag() {
+        return IsBhag;
+    }
+
+    public void setIsBhag(String isBhag) {
+        IsBhag = isBhag;
+    }
+
+    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -74,7 +87,10 @@ public class Jilla implements Serializable {
             "id='" + id + '\'' +
             ",jillaName='" + jillaName + '\'' +
             ",vibhagID='" + vibhagID + '\'' +
+            ",IsBhag='" + IsBhag + '\'' +
             "}";
     }
+
+
 
 }
