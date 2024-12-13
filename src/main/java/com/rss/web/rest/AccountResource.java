@@ -3,6 +3,7 @@ package com.rss.web.rest;
 import com.rss.domain.Jilla;
 import com.rss.domain.SevaVasti;
 import com.rss.domain.Shakha;
+import com.rss.domain.ShakhaVrut;
 import com.rss.domain.Taluka;
 import com.rss.domain.User;
 import com.rss.domain.Vibhag;
@@ -11,21 +12,25 @@ import com.rss.security.SecurityUtils;
 import com.rss.service.MailService;
 import com.rss.service.SevaVastiService;
 import com.rss.service.ShakhaService;
+import com.rss.service.ShakhaVrutService;
 import com.rss.service.TalukaService;
 import com.rss.service.JillaService;
 import com.rss.service.UserService;
 import com.rss.service.VibhagService;
 import com.rss.service.dto.AdminUserDTO;
 import com.rss.service.dto.PasswordChangeDTO;
+import com.rss.service.dto.ShakhaVrutDTO;
 import com.rss.web.rest.errors.*;
 import com.rss.web.rest.vm.KeyAndPasswordVM;
 import com.rss.web.rest.vm.ManagedUserVM;
 import jakarta.validation.Valid;
+
 import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -60,7 +65,9 @@ public class AccountResource {
 
     private final ShakhaService shakhaService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService) {
+    private final ShakhaVrutService shakhaVrutService;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService,ShakhaVrutService shakhaVrutService) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -69,6 +76,7 @@ public class AccountResource {
         this.talukaService = talukaService;
         this.sevaVastiService = sevaVastiService;
         this.shakhaService = shakhaService;
+        this.shakhaVrutService = shakhaVrutService;
     }
 
     /**
@@ -231,6 +239,22 @@ public class AccountResource {
     public List<Shakha> getShakha(@PathVariable("vastiId") String vastiId) {
         return shakhaService
             .getShakhaListByVastiId(vastiId)
+            .stream().toList();
+    }
+    @PostMapping("/shakhaVrut")
+    public ResponseEntity saveshakhaVrut(@Valid @RequestBody ShakhaVrutDTO shakhaVrutDTO) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+        
+            shakhaVrutService.saveUpdateShakhaVrut(shakhaVrutDTO);
+        
+        return new ResponseEntity<>("Shakha Vrut Created", HttpStatus.OK);
+
+    }
+
+    @GetMapping("/getShakhaVrut/{vastiId}/{selectedDate:.+}")
+    public List<ShakhaVrut> getShakhaVrutByVastiIdAndSelectedDate(@PathVariable("vastiId") String vastiId,@PathVariable("selectedDate") Date selectedDate) {
+        return shakhaVrutService.findAllByVastiIdAndSelectedDate(vastiId,selectedDate.toString())
             .stream().toList();
     }
     
