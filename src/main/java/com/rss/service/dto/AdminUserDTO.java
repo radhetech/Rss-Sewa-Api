@@ -6,6 +6,7 @@ import com.rss.domain.User;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class AdminUserDTO implements Serializable {
 
     private String jilla;
 
-    private String taluka;
+    private Map taluka;
 
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
@@ -210,12 +211,11 @@ public class AdminUserDTO implements Serializable {
     public void setJilla(String jilla) {
         this.jilla = jilla;
     }
-
-    public String getTaluka() {
+    public Map getTaluka() {
         return taluka;
     }
 
-    public void setTaluka(String taluka) {
+    public void setTaluka(Map taluka) {
         this.taluka = taluka;
     }
 

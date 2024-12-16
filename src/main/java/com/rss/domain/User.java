@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
@@ -85,7 +86,7 @@ public class User extends AbstractAuditingEntity<String> implements Serializable
     private String jilla;
 
     @Field("taluka")
-    private String taluka;
+    private Map taluka;
 
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
@@ -218,11 +219,11 @@ public class User extends AbstractAuditingEntity<String> implements Serializable
         this.jilla = jilla;
     }
 
-    public String getTaluka() {
+    public Map getTaluka() {
         return taluka;
     }
 
-    public void setTaluka(String taluka) {
+    public void setTaluka(Map taluka) {
         this.taluka = taluka;
     }
 
