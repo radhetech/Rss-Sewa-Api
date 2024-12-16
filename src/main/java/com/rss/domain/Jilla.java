@@ -58,7 +58,7 @@ public class Jilla implements Serializable {
     }
 
     public void setIsBhag(String isBhag) {
-        IsBhag = isBhag;
+        this.IsBhag = isBhag;
     }
 
     
