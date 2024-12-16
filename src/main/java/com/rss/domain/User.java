@@ -80,10 +80,10 @@ public class User extends AbstractAuditingEntity<String> implements Serializable
     private String prant;
 
     @Field("vibhag")
-    private String vibhag;
+    private Map vibhag;
 
     @Field("jilla")
-    private String jilla;
+    private Map jilla;
 
     @Field("taluka")
     private Map taluka;
@@ -198,24 +198,22 @@ public class User extends AbstractAuditingEntity<String> implements Serializable
     public String getPrant() {
         return prant;
     }
-
     public void setPrant(String prant) {
         this.prant = prant;
     }
-
-    public String getVibhag() {
+    public Map getVibhag() {
         return vibhag;
     }
 
-    public void setVibhag(String vibhag) {
+    public void setVibhag(Map vibhag) {
         this.vibhag = vibhag;
     }
 
-    public String getJilla() {
+    public Map getJilla() {
         return jilla;
     }
 
-    public void setJilla(String jilla) {
+    public void setJilla(Map jilla) {
         this.jilla = jilla;
     }
 

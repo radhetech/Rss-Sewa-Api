@@ -54,9 +54,9 @@ public class AdminUserDTO implements Serializable {
 
     private String prant;
 
-    private String vibhag;
+    private Map vibhag;
 
-    private String jilla;
+    private Map jilla;
 
     private Map taluka;
 
@@ -175,42 +175,37 @@ public class AdminUserDTO implements Serializable {
     public Instant getLastModifiedDate() {
         return lastModifiedDate;
     }
-
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
-
     public Set<String> getAuthorities() {
         return authorities;
     }
-
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
     }
-
     public String getPrant() {
         return prant;
     }
-
     public void setPrant(String prant) {
         this.prant = prant;
     }
-
-    public String getVibhag() {
+    public Map getVibhag() {
         return vibhag;
     }
 
-    public void setVibhag(String vibhag) {
+    public void setVibhag(Map vibhag) {
         this.vibhag = vibhag;
     }
 
-    public String getJilla() {
+    public Map getJilla() {
         return jilla;
     }
 
-    public void setJilla(String jilla) {
+    public void setJilla(Map jilla) {
         this.jilla = jilla;
     }
+
     public Map getTaluka() {
         return taluka;
     }
