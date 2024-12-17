@@ -10,15 +10,21 @@ import com.rss.domain.Vibhag;
 import com.rss.repository.UserRepository;
 import com.rss.security.SecurityUtils;
 import com.rss.service.MailService;
+import com.rss.service.SevaKaryaService;
+import com.rss.service.SevaUpkramService;
 import com.rss.service.SevaVastiService;
 import com.rss.service.ShakhaService;
 import com.rss.service.ShakhaVrutService;
 import com.rss.service.TalukaService;
 import com.rss.service.JillaService;
+import com.rss.service.JillaVrutService;
 import com.rss.service.UserService;
 import com.rss.service.VibhagService;
 import com.rss.service.dto.AdminUserDTO;
+import com.rss.service.dto.JillaVrutDTO;
 import com.rss.service.dto.PasswordChangeDTO;
+import com.rss.service.dto.SevaKaryaDTO;
+import com.rss.service.dto.SevaUpkramDTO;
 import com.rss.service.dto.ShakhaVrutDTO;
 import com.rss.web.rest.errors.*;
 import com.rss.web.rest.vm.KeyAndPasswordVM;
@@ -67,7 +73,14 @@ public class AccountResource {
 
     private final ShakhaVrutService shakhaVrutService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService,ShakhaVrutService shakhaVrutService) {
+    private final JillaVrutService jillaVrutService;
+
+    private final SevaUpkramService sevaUpkramService;
+
+    private final SevaKaryaService sevaKaryaService;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService,ShakhaVrutService shakhaVrutService,JillaVrutService jillaVrutService,
+                            SevaUpkramService sevaUpkramService,SevaKaryaService sevaKaryaService) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -77,6 +90,9 @@ public class AccountResource {
         this.sevaVastiService = sevaVastiService;
         this.shakhaService = shakhaService;
         this.shakhaVrutService = shakhaVrutService;
+        this.jillaVrutService = jillaVrutService;
+        this.sevaUpkramService = sevaUpkramService;
+        this.sevaKaryaService =  sevaKaryaService;
     }
 
     /**
@@ -242,7 +258,7 @@ public class AccountResource {
             .stream().toList();
     }
     @PostMapping("/shakhaVrut")
-    public ResponseEntity saveshakhaVrut(@Valid @RequestBody ShakhaVrutDTO shakhaVrutDTO) {
+    public ResponseEntity saveShakhaVrut(@Valid @RequestBody ShakhaVrutDTO shakhaVrutDTO) {
         String userLogin = SecurityUtils.getCurrentUserLogin()
             .orElseThrow(() -> new AccountResourceException("Current user login not found"));
         
@@ -250,6 +266,29 @@ public class AccountResource {
         
         return new ResponseEntity<>("Shakha Vrut Created", HttpStatus.OK);
 
+    }
+
+    @PostMapping("/jillaVrut")
+    public ResponseEntity<String> saveJillaVrut(@Valid @RequestBody JillaVrutDTO jillaVrutDTO) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+        jillaVrutService.saveUpdateJillaVrut(jillaVrutDTO);
+        return new ResponseEntity<>("Jilla Vrut Created", HttpStatus.OK);
+    }
+    @PostMapping("/sevaUpkram")
+    public ResponseEntity<String> saveSevaUpkram(@Valid @RequestBody SevaUpkramDTO sevaUpkramDTO) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+        sevaUpkramService.saveUpdateSevaUpkram(sevaUpkramDTO);
+        return new ResponseEntity<>("Seva Upkram Created", HttpStatus.OK);
+    }
+
+    @PostMapping("/sevaKarya")
+    public ResponseEntity<String> saveSevaKarya(@Valid @RequestBody SevaKaryaDTO sevaKaryaDTO) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+            sevaKaryaService.saveUpdateSevaKarya(sevaKaryaDTO);
+        return new ResponseEntity<>("Seva Karya Created", HttpStatus.OK);
     }
 
     @GetMapping("/getShakhaVrut/{vastiId}/{selectedDate:.+}")
