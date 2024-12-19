@@ -1,10 +1,12 @@
 package com.rss.service;
 
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.rss.domain.JillaVrut;
 import com.rss.domain.SevaUpkram;
 import com.rss.repository.SevaUpkramRepository;
 import com.rss.service.dto.SevaUpkramDTO;
@@ -23,7 +25,7 @@ public class SevaUpkramService {
         this.sevaUpkramRepository = sevaUpkramRepository;
     }
 
-    public void saveUpdateSevaUpkram(SevaUpkramDTO sevaUpkramDTO){
+    public void saveUpdateSevaUpkram(SevaUpkramDTO sevaUpkramDTO) {
         SevaUpkram sevaUpkram = new SevaUpkram();
         sevaUpkram.setShiksha(sevaUpkramDTO.getShiksha());
         sevaUpkram.setAayogya(sevaUpkramDTO.getAayogya());
@@ -39,5 +41,9 @@ public class SevaUpkramService {
         sevaUpkramRepository.save(sevaUpkram);
 
     }
-    
+
+    public List<SevaUpkram> findBySevaUpkramByVastiIdAndMonth(String vastiId, String month) {
+        return sevaUpkramRepository.findBySevaVastiIdAndMonth(vastiId, month);
+    }
+
 }

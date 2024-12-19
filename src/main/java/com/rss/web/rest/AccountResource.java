@@ -1,6 +1,9 @@
 package com.rss.web.rest;
 
 import com.rss.domain.Jilla;
+import com.rss.domain.JillaVrut;
+import com.rss.domain.SevaKarya;
+import com.rss.domain.SevaUpkram;
 import com.rss.domain.SevaVasti;
 import com.rss.domain.Shakha;
 import com.rss.domain.ShakhaVrut;
@@ -296,5 +299,20 @@ public class AccountResource {
         return shakhaVrutService.findAllByVastiIdAndSelectedDate(vastiId,selectedDate.toString())
             .stream().toList();
     }
-    
+
+    @GetMapping("/getJillaVrut/{jillaId}/{month}")
+    public List<JillaVrut> getJillaVrutByJillaIdAndMonth(@PathVariable("jillaId") String jillaId,@PathVariable("month") String month) {
+        return jillaVrutService.findByJillaIdAndMonth(jillaId,month)
+            .stream().toList();
+    }
+    @GetMapping("/getSevaUpkram/{vastiId}/{month}")
+    public List<SevaUpkram> getSevaUpkramByVastiIdAndMonth(@PathVariable("vastiId") String vastiId,@PathVariable("month") String month) {
+        return sevaUpkramService.findBySevaUpkramByVastiIdAndMonth(vastiId,month)
+            .stream().toList();
+    }
+    @GetMapping("/getSevaKarya/{vastiId}/{year}")
+    public List<SevaKarya> getSevaKaryaByVastiIdAndYear(@PathVariable("vastiId") String vastiId,@PathVariable("year") String year) {
+        return sevaKaryaService.findBySevaKaryaByVastiIdAndYear(vastiId,Integer.parseInt(year))
+            .stream().toList();
+    }
 }

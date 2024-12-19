@@ -6,13 +6,9 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import com.rss.service.dto.Aayogya;
 import com.rss.service.dto.AayogyaSevaKarya;
-import com.rss.service.dto.Samajik;
 import com.rss.service.dto.SamajikSevaKarya;
-import com.rss.service.dto.Shiksha;
 import com.rss.service.dto.ShikshaSevaKarya;
-import com.rss.service.dto.Swavalamban;
 import com.rss.service.dto.SwavalambanSevaKarya;
 
 import jakarta.validation.constraints.NotNull;

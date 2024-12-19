@@ -1,11 +1,14 @@
 package com.rss.service;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.rss.domain.SevaKarya;
+import com.rss.domain.SevaUpkram;
 import com.rss.repository.SevaKaryaRepository;
 import com.rss.service.dto.SevaKaryaDTO;
 
@@ -38,5 +41,7 @@ public class SevaKaryaService {
         sevaKaryaRepository.save(sevaKarya);
 
     }
-    
+    public List<SevaKarya> findBySevaKaryaByVastiIdAndYear(String vastiId, int year) {
+        return sevaKaryaRepository.findBySevaVastiIdAndYear(vastiId, year);
+    }
 }

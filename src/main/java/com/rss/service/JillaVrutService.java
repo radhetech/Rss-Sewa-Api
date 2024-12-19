@@ -40,8 +40,8 @@ public class JillaVrutService {
 
     }
 
-    public List<JillaVrut> findByVibhagIdAndMonth(String vibhagId, String month) {
-        return jillaVrutRepository.findByVibhagIdAndMonth(vibhagId, month);
+    public List<JillaVrut> findByJillaIdAndMonth(String jillaId, String month) {
+        return jillaVrutRepository.findByJillaIdAndMonth(jillaId, month);
     }
     
 
