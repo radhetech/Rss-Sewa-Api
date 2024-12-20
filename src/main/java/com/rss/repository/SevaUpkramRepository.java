@@ -14,6 +14,6 @@ import com.rss.domain.SevaUpkram;
 @Repository
 public interface SevaUpkramRepository extends MongoRepository<SevaUpkram, String>  {
 
-    List<SevaUpkram> findBySevaVastiIdAndMonth(String sevaVastiId, String month);
+    List<SevaUpkram> findBySevaVastiIdAndMonthAndYear(String sevaVastiId, String month, int year);
  
 }

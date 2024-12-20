@@ -42,8 +42,8 @@ public class SevaUpkramService {
 
     }
 
-    public List<SevaUpkram> findBySevaUpkramByVastiIdAndMonth(String vastiId, String month) {
-        return sevaUpkramRepository.findBySevaVastiIdAndMonth(vastiId, month);
+    public List<SevaUpkram> findBySevaUpkramByVastiIdAndMonthAndYear(String vastiId, String month, int year) {
+        return sevaUpkramRepository.findBySevaVastiIdAndMonthAndYear(vastiId, month,year);
     }
 
 }

@@ -294,9 +294,9 @@ public class AccountResource {
         return new ResponseEntity<>("Seva Karya Created", HttpStatus.OK);
     }
 
-    @GetMapping("/getShakhaVrut/{vastiId}/{selectedDate:.+}")
-    public List<ShakhaVrut> getShakhaVrutByVastiIdAndSelectedDate(@PathVariable("vastiId") String vastiId,@PathVariable("selectedDate") Date selectedDate) {
-        return shakhaVrutService.findAllByVastiIdAndSelectedDate(vastiId,selectedDate.toString())
+    @GetMapping("/getShakhaVrut/")
+    public List<ShakhaVrut> getShakhaVrutByVastiIdAndSelectedDate(@RequestParam("vastiId") String vastiId,@RequestParam("selectedDate") String selectedDate) {
+        return shakhaVrutService.findAllByVastiIdAndSelectedDate(vastiId,selectedDate)
             .stream().toList();
     }
 
@@ -305,9 +305,9 @@ public class AccountResource {
         return jillaVrutService.findByJillaIdAndMonth(jillaId,month)
             .stream().toList();
     }
-    @GetMapping("/getSevaUpkram/{vastiId}/{month}")
-    public List<SevaUpkram> getSevaUpkramByVastiIdAndMonth(@PathVariable("vastiId") String vastiId,@PathVariable("month") String month) {
-        return sevaUpkramService.findBySevaUpkramByVastiIdAndMonth(vastiId,month)
+    @GetMapping("/getSevaUpkram/{vastiId}/{month}/{year}")
+    public List<SevaUpkram> getSevaUpkramByVastiIdAndMonth(@PathVariable("vastiId") String vastiId,@PathVariable("month") String month,@PathVariable("year") String year) {
+        return sevaUpkramService.findBySevaUpkramByVastiIdAndMonthAndYear(vastiId,month,Integer.parseInt(year))
             .stream().toList();
     }
     @GetMapping("/getSevaKarya/{vastiId}/{year}")
