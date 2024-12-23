@@ -10,6 +10,8 @@ import com.rss.domain.ShakhaVrut;
 import com.rss.domain.Taluka;
 import com.rss.domain.User;
 import com.rss.domain.Vibhag;
+import com.rss.repository.SevaVastiRepository;
+import com.rss.repository.ShakhaRepository;
 import com.rss.repository.UserRepository;
 import com.rss.security.SecurityUtils;
 import com.rss.service.MailService;
@@ -28,6 +30,8 @@ import com.rss.service.dto.JillaVrutDTO;
 import com.rss.service.dto.PasswordChangeDTO;
 import com.rss.service.dto.SevaKaryaDTO;
 import com.rss.service.dto.SevaUpkramDTO;
+import com.rss.service.dto.SevaVastiDTO;
+import com.rss.service.dto.ShakhaDTO;
 import com.rss.service.dto.ShakhaVrutDTO;
 import com.rss.web.rest.errors.*;
 import com.rss.web.rest.vm.KeyAndPasswordVM;
@@ -82,8 +86,12 @@ public class AccountResource {
 
     private final SevaKaryaService sevaKaryaService;
 
+    private final SevaVastiRepository sevaVastiRepository;
+
+    private final ShakhaRepository shakhaRepository;
+
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService,ShakhaVrutService shakhaVrutService,JillaVrutService jillaVrutService,
-                            SevaUpkramService sevaUpkramService,SevaKaryaService sevaKaryaService) {
+                            SevaUpkramService sevaUpkramService,SevaKaryaService sevaKaryaService,SevaVastiRepository sevaVastiRepository,ShakhaRepository shakhaRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -96,6 +104,8 @@ public class AccountResource {
         this.jillaVrutService = jillaVrutService;
         this.sevaUpkramService = sevaUpkramService;
         this.sevaKaryaService =  sevaKaryaService;
+        this.sevaVastiRepository = sevaVastiRepository;
+        this.shakhaRepository = shakhaRepository;
     }
 
     /**
@@ -248,12 +258,52 @@ public class AccountResource {
             .getTalukaListByJillaId(jillaId)
             .stream().toList();
     }
+
+    @PostMapping("/sevaVasti/save")
+    public ResponseEntity<String> saveSevaVasti(@Valid @RequestBody SevaVastiDTO sevaVastiDTO) throws Exception {
+        String message = "";
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+        if (null == sevaVastiDTO.getSevaVastiId() || sevaVastiDTO.getSevaVastiId().isBlank() || sevaVastiDTO.getSevaVastiId().isEmpty()) {
+            Optional<SevaVasti> existingSevaVastiName = sevaVastiRepository
+                    .findOneBySevaVastiNameIgnoreCase(sevaVastiDTO.getSevaVastiName());
+            if (existingSevaVastiName.isPresent()) {
+                throw new Exception("Seva Vasti is already present");
+            }
+            message = "Seva Vasti Created";
+        } else {
+            message = "Seva Vasti Updated";
+        }
+        sevaVastiService.saveUpdateSevaVasti(sevaVastiDTO);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @GetMapping("/getSevaVasti/{talukaId}")
     public List<SevaVasti> getSevaVasti(@PathVariable("talukaId") String talukaId) {
         return sevaVastiService
             .getSevaVastiListByTalukaId(talukaId)
             .stream().toList();
     }
+
+    @PostMapping("/shakha/save")
+    public ResponseEntity<String> saveShakha(@Valid @RequestBody ShakhaDTO shakhaDTO) throws Exception {
+        String message = "";
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+        if (null == shakhaDTO.getShakhaId() || shakhaDTO.getShakhaId().isBlank() || shakhaDTO.getShakhaId().isEmpty()) {
+            Optional<Shakha> existingShakhaName = shakhaRepository
+                    .findOneByShakhaNameIgnoreCase(shakhaDTO.getShakhaName());
+            if (existingShakhaName.isPresent()) {
+                throw new Exception("Shakha is already present");
+            }
+            message = "Shakha Created";
+        } else {
+            message = "Shakha Updated";
+        }
+        shakhaService.saveUpdateShakha(shakhaDTO);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @GetMapping("/getShakha/{vastiId}")
     public List<Shakha> getShakha(@PathVariable("vastiId") String vastiId) {
         return shakhaService

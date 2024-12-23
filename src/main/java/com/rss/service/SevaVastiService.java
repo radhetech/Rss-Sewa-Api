@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rss.domain.SevaVasti;
 import com.rss.repository.SevaVastiRepository;
+import com.rss.service.dto.SevaVastiDTO;
 
 /**
  * Service class for managing SevaVasti.
@@ -21,11 +22,19 @@ public class SevaVastiService {
 
     public SevaVastiService(SevaVastiRepository sevaVastiRepository) {
         this.sevaVastiRepository = sevaVastiRepository;
-
     }
 
     public List<SevaVasti> getSevaVastiListByTalukaId(String talukaId) {
         return sevaVastiRepository.findByTalukaId(talukaId);
+    }
+
+    public void saveUpdateSevaVasti(SevaVastiDTO sevaVastiDTO) {
+        SevaVasti sevaVasti = new SevaVasti();
+        sevaVasti.setSevaVastiName(sevaVastiDTO.getSevaVastiName());
+        sevaVasti.setTalukaId(sevaVastiDTO.getTalukaId());
+        sevaVasti.setSevaVastiId(sevaVastiDTO.getSevaVastiId());
+        sevaVastiRepository.save(sevaVasti);
+
     }
 
 }

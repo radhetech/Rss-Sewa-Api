@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rss.domain.Shakha;
 import com.rss.repository.ShakhaRepository;
+import com.rss.service.dto.ShakhaDTO;
 
 /**
  * Service class for managing SevaVasti.
@@ -26,6 +27,15 @@ public class ShakhaService {
 
     public List<Shakha> getShakhaListByVastiId(String vastiId) {
         return shakhaRepository.findBySevaVastiId(vastiId);
+    }
+
+    public void saveUpdateShakha(ShakhaDTO shakhaDTO) {
+        Shakha shakha = new Shakha();
+        shakha.setShakhaName(shakhaDTO.getShakhaName());
+        shakha.setSevaVastiId(shakhaDTO.getSevaVastiId());
+        shakha.setShakhaId(shakhaDTO.getShakhaId());
+        shakhaRepository.save(shakha);
+
     }
 
 }
