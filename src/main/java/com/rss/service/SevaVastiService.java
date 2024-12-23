@@ -28,12 +28,12 @@ public class SevaVastiService {
         return sevaVastiRepository.findByTalukaId(talukaId);
     }
 
-    public void saveUpdateSevaVasti(SevaVastiDTO sevaVastiDTO) {
+    public SevaVasti saveUpdateSevaVasti(SevaVastiDTO sevaVastiDTO) {
         SevaVasti sevaVasti = new SevaVasti();
         sevaVasti.setSevaVastiName(sevaVastiDTO.getSevaVastiName());
         sevaVasti.setTalukaId(sevaVastiDTO.getTalukaId());
         sevaVasti.setSevaVastiId(sevaVastiDTO.getSevaVastiId());
-        sevaVastiRepository.save(sevaVasti);
+        return sevaVastiRepository.save(sevaVasti);
 
     }
 

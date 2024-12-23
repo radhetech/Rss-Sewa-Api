@@ -260,7 +260,7 @@ public class AccountResource {
     }
 
     @PostMapping("/sevaVasti/save")
-    public ResponseEntity<String> saveSevaVasti(@Valid @RequestBody SevaVastiDTO sevaVastiDTO) throws Exception {
+    public ResponseEntity<SevaVasti> saveSevaVasti(@Valid @RequestBody SevaVastiDTO sevaVastiDTO) throws Exception {
         String message = "";
         String userLogin = SecurityUtils.getCurrentUserLogin()
                 .orElseThrow(() -> new AccountResourceException("Current user login not found"));
@@ -270,12 +270,9 @@ public class AccountResource {
             if (existingSevaVastiName.isPresent()) {
                 throw new Exception("Seva Vasti is already present");
             }
-            message = "Seva Vasti Created";
-        } else {
-            message = "Seva Vasti Updated";
-        }
-        sevaVastiService.saveUpdateSevaVasti(sevaVastiDTO);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        }  
+        SevaVasti sevaVasti  =  sevaVastiService.saveUpdateSevaVasti(sevaVastiDTO);
+        return new ResponseEntity<>(sevaVasti, HttpStatus.OK);
     }
 
     @GetMapping("/getSevaVasti/{talukaId}")
@@ -286,7 +283,7 @@ public class AccountResource {
     }
 
     @PostMapping("/shakha/save")
-    public ResponseEntity<String> saveShakha(@Valid @RequestBody ShakhaDTO shakhaDTO) throws Exception {
+    public ResponseEntity<Shakha> saveShakha(@Valid @RequestBody ShakhaDTO shakhaDTO) throws Exception {
         String message = "";
         String userLogin = SecurityUtils.getCurrentUserLogin()
                 .orElseThrow(() -> new AccountResourceException("Current user login not found"));
@@ -296,12 +293,9 @@ public class AccountResource {
             if (existingShakhaName.isPresent()) {
                 throw new Exception("Shakha is already present");
             }
-            message = "Shakha Created";
-        } else {
-            message = "Shakha Updated";
-        }
-        shakhaService.saveUpdateShakha(shakhaDTO);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        }  
+        Shakha newdata = shakhaService.saveUpdateShakha(shakhaDTO);
+        return new ResponseEntity<>(newdata, HttpStatus.OK);
     }
 
     @GetMapping("/getShakha/{vastiId}")
@@ -343,7 +337,6 @@ public class AccountResource {
             sevaKaryaService.saveUpdateSevaKarya(sevaKaryaDTO);
         return new ResponseEntity<>("Seva Karya Created", HttpStatus.OK);
     }
-
     @GetMapping("/getShakhaVrut")
     public List<ShakhaVrut> getShakhaVrutByVastiIdAndSelectedDate(@RequestParam("vastiId") String vastiId,@RequestParam("shakhaId") String shakhaId,@RequestParam("selectedDate") String selectedDate) {
         return shakhaVrutService.findByVastiIdAndShakhaIdAndSelectedDate(vastiId,shakhaId,selectedDate).stream().toList();

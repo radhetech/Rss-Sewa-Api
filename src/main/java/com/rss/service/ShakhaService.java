@@ -29,12 +29,12 @@ public class ShakhaService {
         return shakhaRepository.findBySevaVastiId(vastiId);
     }
 
-    public void saveUpdateShakha(ShakhaDTO shakhaDTO) {
+    public Shakha saveUpdateShakha(ShakhaDTO shakhaDTO) {
         Shakha shakha = new Shakha();
         shakha.setShakhaName(shakhaDTO.getShakhaName());
         shakha.setSevaVastiId(shakhaDTO.getSevaVastiId());
         shakha.setShakhaId(shakhaDTO.getShakhaId());
-        shakhaRepository.save(shakha);
+        return shakhaRepository.save(shakha);
 
     }
 
