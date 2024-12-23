@@ -344,10 +344,9 @@ public class AccountResource {
         return new ResponseEntity<>("Seva Karya Created", HttpStatus.OK);
     }
 
-    @GetMapping("/getShakhaVrut/")
-    public List<ShakhaVrut> getShakhaVrutByVastiIdAndSelectedDate(@RequestParam("vastiId") String vastiId,@RequestParam("selectedDate") String selectedDate) {
-        return shakhaVrutService.findAllByVastiIdAndSelectedDate(vastiId,selectedDate)
-            .stream().toList();
+    @GetMapping("/getShakhaVrut")
+    public List<ShakhaVrut> getShakhaVrutByVastiIdAndSelectedDate(@RequestParam("vastiId") String vastiId,@RequestParam("shakhaId") String shakhaId,@RequestParam("selectedDate") String selectedDate) {
+        return shakhaVrutService.findByVastiIdAndShakhaIdAndSelectedDate(vastiId,shakhaId,selectedDate).stream().toList();
     }
 
     @GetMapping("/getJillaVrut/{jillaId}/{month}")

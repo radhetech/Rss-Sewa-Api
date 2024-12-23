@@ -28,8 +28,8 @@ public class ShakhaVrut extends AbstractAuditingEntity<String> implements Serial
     private String selectedDate;
 
     @NotNull
-    @Field("prant_Id")
-    private String prantId;
+    @Field("prant")
+    private String prant;
 
     @NotNull
     @Field("monthlyForm")
@@ -83,12 +83,12 @@ public class ShakhaVrut extends AbstractAuditingEntity<String> implements Serial
         this.selectedDate = selectedDate;
     }
 
-    public String getPrantId() {
-        return prantId;
+    public String getPrant() {
+        return prant;
     }
 
-    public void setPrantId(String prantId) {
-        this.prantId = prantId;
+    public void setPrant(String prant) {
+        this.prant = prant;
     }
 
     public String getVibhagId() {
@@ -170,7 +170,7 @@ public class ShakhaVrut extends AbstractAuditingEntity<String> implements Serial
                 ", selectedDate='" + selectedDate + '\'' +
                 ", monthlyForm='" + monthlyForm + '\'' +
                 ", weeklyForm='" + weeklyForm + '\'' +
-                ", prantId='" + prantId + '\'' +
+                ", prant='" + prant + '\'' +
                 ", vibhagId='" + vibhagId + '\'' +
                 ", jillaId='" + jillaId + '\'' +
                 ", talukaId='" + talukaId + '\'' +

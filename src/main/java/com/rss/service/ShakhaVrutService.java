@@ -28,7 +28,7 @@ public class ShakhaVrutService {
         ShakhaVrut shakhaVrut = new ShakhaVrut();
         shakhaVrut.setSelectedCategory(shakhaVrutDTO.getSelectedCategory());
         shakhaVrut.setSelectedDate(shakhaVrutDTO.getSelectedDate());
-        shakhaVrut.setPrantId(shakhaVrutDTO.getPrantId());
+        shakhaVrut.setPrant(shakhaVrutDTO.getPrant());
         shakhaVrut.setVibhagId(shakhaVrutDTO.getVibhagId());
         shakhaVrut.setJillaId(shakhaVrutDTO.getJillaId());
         shakhaVrut.setTalukaId(shakhaVrutDTO.getTalukaId());
@@ -40,8 +40,8 @@ public class ShakhaVrutService {
 
     }
 
-    public List<ShakhaVrut> findAllByVastiIdAndSelectedDate(String vastiId, String selectedDate) {
-        return shakhaVrutRepository.findByVastiIdAndSelectedDate(vastiId, selectedDate);
+    public List<ShakhaVrut> findByVastiIdAndShakhaIdAndSelectedDate(String vastiId, String shakhaId, String selectedDate) {
+        return shakhaVrutRepository.findByVastiIdAndShakhaIdAndSelectedDate(vastiId, shakhaId, selectedDate);
     }
     
 

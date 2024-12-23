@@ -13,6 +13,6 @@ import com.rss.domain.ShakhaVrut;
 @Repository
 public interface ShakhaVrutRepository extends MongoRepository<ShakhaVrut, String>  {
 
-    List<ShakhaVrut> findByVastiIdAndSelectedDate(String vastiId, String selectedDate);
+    List<ShakhaVrut> findByVastiIdAndShakhaIdAndSelectedDate(String vastiId,String shakhaId, String selectedDate);
     
 }

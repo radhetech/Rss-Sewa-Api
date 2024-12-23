@@ -24,7 +24,7 @@ public class ShakhaVrutDTO implements Serializable {
     private String selectedDate;
 
     @NotBlank
-    private String prantId;
+    private String prant;
 
     @NotBlank
     private String vibhagId;
@@ -63,7 +63,7 @@ public class ShakhaVrutDTO implements Serializable {
         this.id = shakhaVrut.getId();
         this.selectedCategory = shakhaVrut.getSelectedCategory();
         this.selectedDate = shakhaVrut.getSelectedDate();
-        this.prantId = shakhaVrut.getPrantId();
+        this.prant = shakhaVrut.getPrant();
         this.vibhagId = shakhaVrut.getVibhagId();
         this.jillaId = shakhaVrut.getJillaId();
         this.talukaId = shakhaVrut.getTalukaId();
@@ -100,13 +100,12 @@ public class ShakhaVrutDTO implements Serializable {
     public void setSelectedDate(String selectedDate) {
         this.selectedDate = selectedDate;
     }
-
-    public String getPrantId() {
-        return prantId;
+    public String getPrant() {
+        return prant;
     }
 
-    public void setPrantId(String prantId) {
-        this.prantId = prantId;
+    public void setPrant(String prant) {
+        this.prant = prant;
     }
 
     public String getVibhagId() {
@@ -205,7 +204,7 @@ public class ShakhaVrutDTO implements Serializable {
                 "selectedDate='" + selectedDate + '\'' +
                 "monthlyForm='" + monthlyForm + '\'' +
                 "weeklyForm='" + weeklyForm + '\'' +
-                ", prantId='" + prantId + '\'' +
+                ", prant='" + prant + '\'' +
                 ", vibhagId='" + vibhagId + '\'' +
                 ", jillaId='" + jillaId + '\'' +
                 ", talukaId='" + talukaId + '\'' +
