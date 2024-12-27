@@ -1,12 +1,10 @@
 package com.rss.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import com.rss.service.dto.AyamList;
 
 import jakarta.validation.constraints.NotNull;
 
@@ -22,13 +20,24 @@ public class JillaVrut extends AbstractAuditingEntity<String> implements Seriali
     private String id;
 
     @NotNull
-    @Field("ayamList")
-    private ArrayList<AyamList> ayamList;
-
-
-    @NotNull
     @Field("jBethak")
     private String jBethak;
+
+    @NotNull
+    @Field("shiksha")
+    private String shiksha;
+
+    @NotNull
+    @Field("aarogya")
+    private String aarogya;
+
+    @NotNull
+    @Field("swavalamban")
+    private String swavalamban;
+
+    @NotNull
+    @Field("samajik")
+    private String samajik;
 
     @NotNull
     @Field("shakhaPravasNum")
@@ -77,13 +86,35 @@ public class JillaVrut extends AbstractAuditingEntity<String> implements Seriali
     public String getjBethak() {
         return jBethak;
     }
-
-    public ArrayList<AyamList> getAyamList() {
-        return ayamList;
+    public String getShiksha() {
+        return shiksha;
+    }
+    public void setShiksha(String shiksha) {
+        this.shiksha = shiksha;
     }
 
-    public void setAyamList(ArrayList<AyamList> ayamList) {
-        this.ayamList = ayamList;
+    public String getAarogya() {
+        return aarogya;
+    }
+
+    public void setAarogya(String aarogya) {
+        this.aarogya = aarogya;
+    }
+
+    public String getSwavalamban() {
+        return swavalamban;
+    }
+
+    public void setSwavalamban(String swavalamban) {
+        this.swavalamban = swavalamban;
+    }
+
+    public String getSamajik() {
+        return samajik;
+    }
+
+    public void setSamajik(String samajik) {
+        this.samajik = samajik;
     }
 
     public void setjBethak(String jBethak) {
@@ -182,7 +213,10 @@ public class JillaVrut extends AbstractAuditingEntity<String> implements Seriali
     @Override
     public String toString() {
         return "JillaVrut{" +
-                "ayamList='" + ayamList + '\'' +
+                ", shiksha='" + shiksha + '\'' +
+                ", aarogya='" + aarogya + '\'' +
+                ", swavalamban='" + swavalamban + '\'' +
+                ", samajik='" + samajik + '\'' +
                 ", jBethak='" + jBethak + '\'' +
                 ", shakhaPravasNum='" + shakhaPravasNum + '\'' +
                 ", sevaVastiPravasNum='" + sevaVastiPravasNum + '\'' +

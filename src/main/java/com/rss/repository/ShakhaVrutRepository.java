@@ -14,5 +14,9 @@ import com.rss.domain.ShakhaVrut;
 public interface ShakhaVrutRepository extends MongoRepository<ShakhaVrut, String>  {
 
     List<ShakhaVrut> findByVastiIdAndShakhaIdAndSelectedDate(String vastiId,String shakhaId, String selectedDate);
+
+    List<ShakhaVrut> findByVastiId(String vastiId);
+
+
     
 }

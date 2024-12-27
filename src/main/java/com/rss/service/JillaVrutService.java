@@ -26,7 +26,10 @@ public class JillaVrutService {
 
     public void saveUpdateJillaVrut(JillaVrutDTO jillaVrutDTO){
         JillaVrut jillaVrut = new JillaVrut();
-        jillaVrut.setAyamList(jillaVrutDTO.getAyamList());
+        jillaVrut.setShiksha(jillaVrutDTO.getShiksha());
+        jillaVrut.setAarogya(jillaVrutDTO.getAarogya());
+        jillaVrut.setSwavalamban(jillaVrutDTO.getSwavalamban());
+        jillaVrut.setSamajik(jillaVrutDTO.getSamajik());
         jillaVrut.setjBethak(jillaVrutDTO.getjBethak());
         jillaVrut.setShakhaPravasNum(jillaVrutDTO.getShakhaPravasNum());
         jillaVrut.setSevaVastiPravasNum(jillaVrutDTO.getSevaVastiPravasNum());
@@ -40,8 +43,8 @@ public class JillaVrutService {
 
     }
 
-    public List<JillaVrut> findByJillaIdAndMonth(String jillaId, String month) {
-        return jillaVrutRepository.findByJillaIdAndMonth(jillaId, month);
+    public List<JillaVrut> findByJillaIdAndMonthAndYear(String jillaId, String month,int year) {
+        return jillaVrutRepository.findByJillaIdAndMonthAndYear(jillaId, month,year);
     }
     
 

@@ -2,13 +2,13 @@ package com.rss.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.rss.domain.SevaKarya;
-import com.rss.domain.SevaUpkram;
 import com.rss.repository.SevaKaryaRepository;
 import com.rss.service.dto.SevaKaryaDTO;
 
@@ -37,11 +37,17 @@ public class SevaKaryaService {
         sevaKarya.setJillaId(sevaKaryaDTO.getJillaId());
         sevaKarya.setTalukaId(sevaKaryaDTO.getTalukaId());
         sevaKarya.setSevaVastiId(sevaKaryaDTO.getSevaVastiId());
+        sevaKarya.setShakhaId(sevaKaryaDTO.getShakhaId());
         sevaKarya.setYear(sevaKaryaDTO.getYear());
         sevaKaryaRepository.save(sevaKarya);
 
     }
-    public List<SevaKarya> findBySevaKaryaByVastiIdAndYear(String vastiId, int year) {
-        return sevaKaryaRepository.findBySevaVastiIdAndYear(vastiId, year);
+    public List<SevaKarya> findBySevaKaryaByVastiIdAndYear(String vastiId, Optional<String> shakhaId, int year) {
+        if(shakhaId.isPresent()){
+            return sevaKaryaRepository.findBySevaVastiIdAndShakhaIdAndYear(vastiId,shakhaId, year);
+        }else{
+            return sevaKaryaRepository.findBySevaVastiIdAndYear(vastiId, year);
+        }
+        
     }
 }

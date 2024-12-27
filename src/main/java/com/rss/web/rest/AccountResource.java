@@ -10,9 +10,14 @@ import com.rss.domain.ShakhaVrut;
 import com.rss.domain.Taluka;
 import com.rss.domain.User;
 import com.rss.domain.Vibhag;
+import com.rss.repository.JillaRepository;
+import com.rss.repository.SevaKaryaRepository;
 import com.rss.repository.SevaVastiRepository;
 import com.rss.repository.ShakhaRepository;
+import com.rss.repository.ShakhaVrutRepository;
+import com.rss.repository.TalukaRepository;
 import com.rss.repository.UserRepository;
+import com.rss.repository.VibhagRepository;
 import com.rss.security.SecurityUtils;
 import com.rss.service.MailService;
 import com.rss.service.SevaKaryaService;
@@ -33,11 +38,13 @@ import com.rss.service.dto.SevaUpkramDTO;
 import com.rss.service.dto.SevaVastiDTO;
 import com.rss.service.dto.ShakhaDTO;
 import com.rss.service.dto.ShakhaVrutDTO;
+import com.rss.service.dto.SummaryReportDTO;
 import com.rss.web.rest.errors.*;
 import com.rss.web.rest.vm.KeyAndPasswordVM;
 import com.rss.web.rest.vm.ManagedUserVM;
 import jakarta.validation.Valid;
 
+import java.time.Year;
 import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -90,8 +97,22 @@ public class AccountResource {
 
     private final ShakhaRepository shakhaRepository;
 
+    private final JillaRepository jillaRepository;
+
+    private final TalukaRepository talukaRepository;
+
+    private final SevaKaryaRepository sevaKaryaRepository;
+
+    private final VibhagRepository vibhagRepository;
+    
+    private final ShakhaVrutRepository shakhaVrutRepository;
+
+     
+
+
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService,ShakhaVrutService shakhaVrutService,JillaVrutService jillaVrutService,
-                            SevaUpkramService sevaUpkramService,SevaKaryaService sevaKaryaService,SevaVastiRepository sevaVastiRepository,ShakhaRepository shakhaRepository) {
+                            SevaUpkramService sevaUpkramService,SevaKaryaService sevaKaryaService,SevaVastiRepository sevaVastiRepository,ShakhaRepository shakhaRepository,JillaRepository jillaRepository, TalukaRepository talukaRepository,SevaKaryaRepository sevaKaryaRepository,VibhagRepository vibhagRepository,
+                            ShakhaVrutRepository shakhaVrutRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -106,6 +127,11 @@ public class AccountResource {
         this.sevaKaryaService =  sevaKaryaService;
         this.sevaVastiRepository = sevaVastiRepository;
         this.shakhaRepository = shakhaRepository;
+        this.jillaRepository  = jillaRepository;
+        this.talukaRepository = talukaRepository;
+        this.sevaKaryaRepository = sevaKaryaRepository;
+        this.vibhagRepository = vibhagRepository;
+        this.shakhaVrutRepository = shakhaVrutRepository;
     }
 
     /**
@@ -342,9 +368,9 @@ public class AccountResource {
         return shakhaVrutService.findByVastiIdAndShakhaIdAndSelectedDate(vastiId,shakhaId,selectedDate).stream().toList();
     }
 
-    @GetMapping("/getJillaVrut/{jillaId}/{month}")
-    public List<JillaVrut> getJillaVrutByJillaIdAndMonth(@PathVariable("jillaId") String jillaId,@PathVariable("month") String month) {
-        return jillaVrutService.findByJillaIdAndMonth(jillaId,month)
+    @GetMapping("/getJillaVrut/{jillaId}/{month}/{year}")
+    public List<JillaVrut> getJillaVrutByJillaIdAndMonth(@PathVariable("jillaId") String jillaId,@PathVariable("month") String month,@PathVariable("year") String year) {
+        return jillaVrutService.findByJillaIdAndMonthAndYear(jillaId,month,Integer.parseInt(year))
             .stream().toList();
     }
     @GetMapping("/getSevaUpkram/{vastiId}/{month}/{year}")
@@ -353,8 +379,53 @@ public class AccountResource {
             .stream().toList();
     }
     @GetMapping("/getSevaKarya/{vastiId}/{year}")
-    public List<SevaKarya> getSevaKaryaByVastiIdAndYear(@PathVariable("vastiId") String vastiId,@PathVariable("year") String year) {
-        return sevaKaryaService.findBySevaKaryaByVastiIdAndYear(vastiId,Integer.parseInt(year))
+    public List<SevaKarya> getSevaKaryaByVastiIdAndYear(@PathVariable("vastiId") String vastiId,@PathVariable("year") String year,
+    @RequestParam("shakhaId") Optional<String> shakhaId) {
+        System.out.println("shakhaId"+shakhaId);
+        return sevaKaryaService.findBySevaKaryaByVastiIdAndYear(vastiId,shakhaId,Integer.parseInt(year))
             .stream().toList();
+    }
+
+    @GetMapping("/getSummaryReportbyVibhag/{vibhagId}")
+    public List<SummaryReportDTO> getSevaKaryaByVastiIdAndYear(@PathVariable("vibhagId") String vibhagId) {
+        List<SummaryReportDTO> summaryReportList = new ArrayList<SummaryReportDTO>();
+
+        Optional<Vibhag> vibhag = vibhagRepository.findByVibhagId(vibhagId);
+
+        List<Jilla> jillaList = jillaRepository.findByVibhagID(vibhagId);
+
+        for (Jilla jilla : jillaList) {
+            SummaryReportDTO srD = new SummaryReportDTO();
+            if(vibhag.get().getIsMahanagar()){
+               srD.setMahaNagarCount(1); 
+            }else{
+                srD.setMahaNagarCount(0); 
+            }
+            srD.setJillaName(jilla.getJillaName());
+            List<Taluka> talukas = talukaRepository.findByJillaId(jilla.getJillaId());
+            int totalSevaVasti = 0;
+            int totalSevaVastiWithSevaKarya = 0;
+            int monthlySevaVastiConnect = 0;
+            for (Taluka taluka : talukas) {
+                List<SevaVasti> sevaVastiList  = this.sevaVastiRepository.findByTalukaId(taluka.getTalukaId());
+                totalSevaVasti = totalSevaVasti + sevaVastiList.size();
+                for (SevaVasti sevaVasti : sevaVastiList) {
+                    totalSevaVastiWithSevaKarya = totalSevaVastiWithSevaKarya + this.sevaKaryaRepository.findBySevaVastiIdAndYear(sevaVasti.getSevaVastiId(), Year.now().getValue()).size();
+                   List<ShakhaVrut> shakhaVrutlst =  this.shakhaVrutRepository.findByVastiId(sevaVasti.getSevaVastiId());
+                   for (ShakhaVrut ShakhaVrut : shakhaVrutlst) {
+                    if(ShakhaVrut.getSelectedCategory().equalsIgnoreCase("M")){
+                        monthlySevaVastiConnect = monthlySevaVastiConnect+1; 
+                    }
+                   }
+                }
+                
+            }
+            srD.setMonthlyvastiContactBranchandMeetingNumber(monthlySevaVastiConnect);
+            srD.setTotalVastiWithSevaKarya(totalSevaVastiWithSevaKarya);
+            srD.setSevaVastiCount(totalSevaVasti);
+            summaryReportList.add(srD);
+        }
+        //System.out.println("jillaList" + jillaList.size());
+        return summaryReportList;
     }
 }

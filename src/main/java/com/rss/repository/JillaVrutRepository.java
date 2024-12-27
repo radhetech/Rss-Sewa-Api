@@ -13,6 +13,6 @@ import com.rss.domain.JillaVrut;
 @Repository
 public interface JillaVrutRepository extends MongoRepository<JillaVrut, String>  {
 
-    List<JillaVrut> findByJillaIdAndMonth(String jillaId, String month);
+    List<JillaVrut> findByJillaIdAndMonthAndYear(String jillaId, String month,int Year);
     
 }

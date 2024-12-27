@@ -60,6 +60,9 @@ public class SevaKarya extends AbstractAuditingEntity<String> implements Seriali
     @Field("sevaVastiId")
     private String sevaVastiId;
 
+    @Field("shakhaId")
+    private String shakhaId;
+
     @NotNull
     @Field("year")
     private int year;
@@ -143,6 +146,13 @@ public class SevaKarya extends AbstractAuditingEntity<String> implements Seriali
     public void setSevaVastiId(String sevaVastiId) {
         this.sevaVastiId = sevaVastiId;
     }
+    public String getShakhaId() {
+        return shakhaId;
+    }
+
+    public void setShakhaId(String shakhaId) {
+        this.shakhaId = shakhaId;
+    }
 
     public int getYear() {
         return year;
@@ -181,6 +191,7 @@ public class SevaKarya extends AbstractAuditingEntity<String> implements Seriali
                 ", jillaId='" + jillaId + '\'' +
                 ", talukaId='" + talukaId + '\'' +
                 ", sevaVastiId='" + sevaVastiId + '\'' +
+                ", shakhaId='" + shakhaId + '\'' +
                 ", year=" + year +
                 "}";
     }

@@ -76,6 +76,14 @@ server:
 # ===================================================================
 
 jhipster:
+  cors:
+    allowed-origins: 'http://ec2-13-233-122-196.ap-south-1.compute.amazonaws.com:8080,http://ec2-13-233-122-196.ap-south-1.compute.amazonaws.com'
+    # Enable CORS when running in GitHub Codespaces
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
+    allow-credentials: true
+    max-age: 1800
   http:
     cache: # Used by the CachingHttpHeadersFilter
       timeToLiveInDays: 1461

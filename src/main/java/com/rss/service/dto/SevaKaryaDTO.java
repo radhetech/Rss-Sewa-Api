@@ -43,6 +43,8 @@ public class SevaKaryaDTO implements Serializable {
     @NotNull
     private String sevaVastiId;
 
+    private String shakhaId;
+
     @Nonnegative
     private int year;
 
@@ -154,6 +156,14 @@ public class SevaKaryaDTO implements Serializable {
         this.sevaVastiId = sevaVastiId;
     }
 
+    public String getShakhaId() {
+        return shakhaId;
+    }
+
+    public void setShakhaId(String shakhaId) {
+        this.shakhaId = shakhaId;
+    }
+
     public int getYear() {
         return year;
     }
@@ -206,6 +216,7 @@ public class SevaKaryaDTO implements Serializable {
                 ", jillaId='" + jillaId + '\'' +
                 ", talukaId='" + talukaId + '\'' +
                 ", sevaVastiId='" + sevaVastiId + '\'' +
+                ", shakhaId='" + shakhaId + '\'' +
                 ", year=" + year +
                 "}";
     }

@@ -2,9 +2,9 @@ package com.rss.service.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 
 import javax.annotation.Nonnegative;
+
 
 import com.rss.domain.JillaVrut;
 
@@ -16,8 +16,18 @@ public class JillaVrutDTO implements Serializable {
 
     private String id;
 
+
     @NotNull
-    private ArrayList<AyamList> ayamList;
+    private String shiksha;
+
+    @NotNull
+    private String aarogya;
+
+    @NotNull
+    private String swavalamban;
+
+    @NotNull
+    private String samajik;
 
     @NotNull
     private String jBethak;
@@ -63,7 +73,10 @@ public class JillaVrutDTO implements Serializable {
 
     public JillaVrutDTO(JillaVrut jillaVrut) {
         this.id = jillaVrut.getId();
-        this.ayamList = jillaVrut.getAyamList();
+        this.shiksha = jillaVrut.getShiksha();
+        this.aarogya = jillaVrut.getAarogya();
+        this.swavalamban = jillaVrut.getSwavalamban();
+        this.samajik = jillaVrut.getSamajik();
         this.jBethak = jillaVrut.getjBethak();
         this.shakhaPravasNum = jillaVrut.getShakhaPravasNum();
         this.sevaVastiPravasNum = jillaVrut.getSevaVastiPravasNum();
@@ -83,12 +96,36 @@ public class JillaVrutDTO implements Serializable {
     public String getId() {
         return id;
     }
-    public ArrayList<AyamList> getAyamList() {
-        return ayamList;
+    public String getShiksha() {
+        return shiksha;
     }
 
-    public void setAyamList(ArrayList<AyamList> ayamList) {
-        this.ayamList = ayamList;
+    public void setShiksha(String shiksha) {
+        this.shiksha = shiksha;
+    }
+
+    public String getAarogya() {
+        return aarogya;
+    }
+
+    public void setAarogya(String aarogya) {
+        this.aarogya = aarogya;
+    }
+
+    public String getSwavalamban() {
+        return swavalamban;
+    }
+
+    public void setSwavalamban(String swavalamban) {
+        this.swavalamban = swavalamban;
+    }
+
+    public String getSamajik() {
+        return samajik;
+    }
+
+    public void setSamajik(String samajik) {
+        this.samajik = samajik;
     }
 
     public String getjBethak() {
@@ -207,7 +244,10 @@ public class JillaVrutDTO implements Serializable {
     @Override
     public String toString() {
         return "JillaVrutDTO{" +
-                "ayamList='" + ayamList + '\'' +
+                ", shiksha='" + shiksha + '\'' +
+                ", aarogya='" + aarogya + '\'' +
+                ", swavalamban='" + swavalamban + '\'' +
+                ", samajik='" + samajik + '\'' +
                 ",jBethak='" + jBethak + '\'' +
                 ",shakhaPravasNum='" + shakhaPravasNum + '\'' +
                 ",sevaVastiPravasNum='" + sevaVastiPravasNum + '\'' +

@@ -25,7 +25,7 @@ public class Vibhag implements Serializable{
     @Field("name")
     private String name;
     @Field("isMahanagar")
-    private String isMahanagar;
+    private Boolean isMahanagar;
 
 
     public String getVibhagId() {
@@ -43,12 +43,11 @@ public class Vibhag implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    
-    public String getIsMahanagar() {
+    public Boolean getIsMahanagar() {
         return isMahanagar;
     }
 
-    public void setIsMahanagar(String isMahanagar) {
+    public void setIsMahanagar(Boolean isMahanagar) {
         this.isMahanagar = isMahanagar;
     }
 
