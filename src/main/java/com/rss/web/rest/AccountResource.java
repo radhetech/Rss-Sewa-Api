@@ -381,7 +381,6 @@ public class AccountResource {
     @GetMapping("/getSevaKarya/{vastiId}/{year}")
     public List<SevaKarya> getSevaKaryaByVastiIdAndYear(@PathVariable("vastiId") String vastiId,@PathVariable("year") String year,
     @RequestParam("shakhaId") Optional<String> shakhaId) {
-        System.out.println("shakhaId"+shakhaId);
         return sevaKaryaService.findBySevaKaryaByVastiIdAndYear(vastiId,shakhaId,Integer.parseInt(year))
             .stream().toList();
     }

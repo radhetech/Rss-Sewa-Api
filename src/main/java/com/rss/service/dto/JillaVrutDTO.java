@@ -18,16 +18,16 @@ public class JillaVrutDTO implements Serializable {
 
 
     @NotNull
-    private String shiksha;
+    private int shiksha;
 
     @NotNull
-    private String aarogya;
+    private int aarogya;
 
     @NotNull
-    private String swavalamban;
+    private int swavalamban;
 
     @NotNull
-    private String samajik;
+    private int samajik;
 
     @NotNull
     private String jBethak;
@@ -92,39 +92,39 @@ public class JillaVrutDTO implements Serializable {
         this.month = jillaVrut.getMonth();
         this.year = jillaVrut.getYear();
     }
-
     public String getId() {
         return id;
     }
-    public String getShiksha() {
+
+    public int getShiksha() {
         return shiksha;
     }
 
-    public void setShiksha(String shiksha) {
+    public void setShiksha(int shiksha) {
         this.shiksha = shiksha;
     }
 
-    public String getAarogya() {
+    public int getAarogya() {
         return aarogya;
     }
 
-    public void setAarogya(String aarogya) {
+    public void setAarogya(int aarogya) {
         this.aarogya = aarogya;
     }
 
-    public String getSwavalamban() {
+    public int getSwavalamban() {
         return swavalamban;
     }
 
-    public void setSwavalamban(String swavalamban) {
+    public void setSwavalamban(int swavalamban) {
         this.swavalamban = swavalamban;
     }
 
-    public String getSamajik() {
+    public int getSamajik() {
         return samajik;
     }
 
-    public void setSamajik(String samajik) {
+    public void setSamajik(int samajik) {
         this.samajik = samajik;
     }
 

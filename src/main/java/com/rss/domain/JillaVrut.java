@@ -25,19 +25,19 @@ public class JillaVrut extends AbstractAuditingEntity<String> implements Seriali
 
     @NotNull
     @Field("shiksha")
-    private String shiksha;
+    private int shiksha;
 
     @NotNull
     @Field("aarogya")
-    private String aarogya;
+    private int aarogya;
 
     @NotNull
     @Field("swavalamban")
-    private String swavalamban;
+    private int swavalamban;
 
     @NotNull
     @Field("samajik")
-    private String samajik;
+    private int samajik;
 
     @NotNull
     @Field("shakhaPravasNum")
@@ -86,34 +86,36 @@ public class JillaVrut extends AbstractAuditingEntity<String> implements Seriali
     public String getjBethak() {
         return jBethak;
     }
-    public String getShiksha() {
+
+    public int getShiksha() {
         return shiksha;
     }
-    public void setShiksha(String shiksha) {
+
+    public void setShiksha(int shiksha) {
         this.shiksha = shiksha;
     }
 
-    public String getAarogya() {
+    public int getAarogya() {
         return aarogya;
     }
 
-    public void setAarogya(String aarogya) {
+    public void setAarogya(int aarogya) {
         this.aarogya = aarogya;
     }
 
-    public String getSwavalamban() {
+    public int getSwavalamban() {
         return swavalamban;
     }
 
-    public void setSwavalamban(String swavalamban) {
+    public void setSwavalamban(int swavalamban) {
         this.swavalamban = swavalamban;
     }
 
-    public String getSamajik() {
+    public int getSamajik() {
         return samajik;
     }
 
-    public void setSamajik(String samajik) {
+    public void setSamajik(int samajik) {
         this.samajik = samajik;
     }
 
