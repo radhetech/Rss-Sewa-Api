@@ -28,6 +28,7 @@ public class SevaKaryaService {
 
     public void saveUpdateSevaKarya(SevaKaryaDTO sevaKaryaDTO){
         SevaKarya sevaKarya = new SevaKarya();
+        sevaKarya.setId(sevaKaryaDTO.getId());
         sevaKarya.setShiksha(sevaKaryaDTO.getShiksha());
         sevaKarya.setAayogya(sevaKaryaDTO.getAayogya());
         sevaKarya.setSwavalamban(sevaKaryaDTO.getSwavalamban());

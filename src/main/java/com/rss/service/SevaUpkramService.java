@@ -27,6 +27,7 @@ public class SevaUpkramService {
 
     public void saveUpdateSevaUpkram(SevaUpkramDTO sevaUpkramDTO) {
         SevaUpkram sevaUpkram = new SevaUpkram();
+        sevaUpkram.setId(sevaUpkramDTO.getId());
         sevaUpkram.setShiksha(sevaUpkramDTO.getShiksha());
         sevaUpkram.setAayogya(sevaUpkramDTO.getAayogya());
         sevaUpkram.setSwavalamban(sevaUpkramDTO.getSwavalamban());

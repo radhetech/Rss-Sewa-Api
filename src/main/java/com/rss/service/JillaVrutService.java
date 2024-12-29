@@ -26,6 +26,7 @@ public class JillaVrutService {
 
     public void saveUpdateJillaVrut(JillaVrutDTO jillaVrutDTO){
         JillaVrut jillaVrut = new JillaVrut();
+        jillaVrut.setId(jillaVrutDTO.getId());
         jillaVrut.setShiksha(jillaVrutDTO.getShiksha());
         jillaVrut.setAarogya(jillaVrutDTO.getAarogya());
         jillaVrut.setSwavalamban(jillaVrutDTO.getSwavalamban());

@@ -26,6 +26,7 @@ public class ShakhaVrutService {
 
     public void saveUpdateShakhaVrut(ShakhaVrutDTO shakhaVrutDTO){
         ShakhaVrut shakhaVrut = new ShakhaVrut();
+        shakhaVrut.setId(shakhaVrutDTO.getId());
         shakhaVrut.setSelectedCategory(shakhaVrutDTO.getSelectedCategory());
         shakhaVrut.setSelectedDate(shakhaVrutDTO.getSelectedDate());
         shakhaVrut.setPrant(shakhaVrutDTO.getPrant());
