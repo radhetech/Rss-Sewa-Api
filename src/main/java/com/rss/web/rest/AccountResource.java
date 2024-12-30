@@ -2,6 +2,7 @@ package com.rss.web.rest;
 
 import com.rss.domain.Jilla;
 import com.rss.domain.JillaVrut;
+import com.rss.domain.SevaDarshan;
 import com.rss.domain.SevaKarya;
 import com.rss.domain.SevaUpkram;
 import com.rss.domain.SevaVasti;
@@ -20,6 +21,8 @@ import com.rss.repository.UserRepository;
 import com.rss.repository.VibhagRepository;
 import com.rss.security.SecurityUtils;
 import com.rss.service.MailService;
+import com.rss.service.S3FileUploadService;
+import com.rss.service.SevaDarshanService;
 import com.rss.service.SevaKaryaService;
 import com.rss.service.SevaUpkramService;
 import com.rss.service.SevaVastiService;
@@ -33,6 +36,7 @@ import com.rss.service.VibhagService;
 import com.rss.service.dto.AdminUserDTO;
 import com.rss.service.dto.JillaVrutDTO;
 import com.rss.service.dto.PasswordChangeDTO;
+import com.rss.service.dto.SevaDarshanDTO;
 import com.rss.service.dto.SevaKaryaDTO;
 import com.rss.service.dto.SevaUpkramDTO;
 import com.rss.service.dto.SevaVastiDTO;
@@ -44,6 +48,8 @@ import com.rss.web.rest.vm.KeyAndPasswordVM;
 import com.rss.web.rest.vm.ManagedUserVM;
 import jakarta.validation.Valid;
 
+import java.io.IOException;
+import java.net.URL;
 import java.time.Year;
 import java.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -52,6 +58,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * REST controller for managing the current user's account.
@@ -107,12 +114,16 @@ public class AccountResource {
     
     private final ShakhaVrutRepository shakhaVrutRepository;
 
+    private final S3FileUploadService s3FileUploadService;
+
+    private final SevaDarshanService sevaDarshanService;
+
      
 
 
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService,ShakhaVrutService shakhaVrutService,JillaVrutService jillaVrutService,
                             SevaUpkramService sevaUpkramService,SevaKaryaService sevaKaryaService,SevaVastiRepository sevaVastiRepository,ShakhaRepository shakhaRepository,JillaRepository jillaRepository, TalukaRepository talukaRepository,SevaKaryaRepository sevaKaryaRepository,VibhagRepository vibhagRepository,
-                            ShakhaVrutRepository shakhaVrutRepository) {
+                            ShakhaVrutRepository shakhaVrutRepository,S3FileUploadService s3FileUploadService,SevaDarshanService sevaDarshanService) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -132,6 +143,8 @@ public class AccountResource {
         this.sevaKaryaRepository = sevaKaryaRepository;
         this.vibhagRepository = vibhagRepository;
         this.shakhaVrutRepository = shakhaVrutRepository;
+        this.s3FileUploadService = s3FileUploadService;
+        this.sevaDarshanService = sevaDarshanService;
     }
 
     /**
@@ -426,5 +439,26 @@ public class AccountResource {
         }
         //System.out.println("jillaList" + jillaList.size());
         return summaryReportList;
+    }
+
+    @PostMapping("/upload")
+    public URL uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+           return s3FileUploadService.uploadFile(file.getOriginalFilename(), file);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+    @PostMapping("/sevaDarshan")
+    public ResponseEntity<String> saveSevaDarshan(@Valid @RequestBody SevaDarshanDTO sevaDarshanDTO) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+                sevaDarshanService.saveUpdateSevaDarshan(sevaDarshanDTO);
+        return new ResponseEntity<>("Seva Darshan Created", HttpStatus.OK);
+    }
+    @GetMapping("/getSevaDarshan/{vastiId}/{year}")
+    public List<SevaDarshan> getSevaDarshanByVastiIdAndYear(@PathVariable("vastiId") String vastiId,@PathVariable("year") String year) {
+        return sevaDarshanService.findBySevaDarshanByVastiIdAndYear(vastiId,Integer.parseInt(year))
+            .stream().toList();
     }
 }

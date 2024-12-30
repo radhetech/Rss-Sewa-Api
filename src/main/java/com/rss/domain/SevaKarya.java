@@ -167,7 +167,7 @@ public class SevaKarya extends AbstractAuditingEntity<String> implements Seriali
         if (this == o) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(o instanceof SevaKarya)) {
             return false;
         }
         return id != null && id.equals(((SevaKarya) o).id);

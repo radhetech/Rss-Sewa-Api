@@ -5,28 +5,27 @@ import java.time.Instant;
 
 import javax.annotation.Nonnegative;
 
-import com.rss.domain.SevaKarya;
+import com.rss.domain.SevaDarshan;
 
 import jakarta.validation.constraints.NotNull;
- 
-public class SevaKaryaDTO implements Serializable {
+
+public class SevaDarshanDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private String id;
 
     @NotNull
-    private ShikshaSevaKarya shiksha;
+    private ShikshaSevaDarshan shiksha;
 
     @NotNull
-    private AayogyaSevaKarya aayogya;
+    private AayogyaSevaDarshan aayogya;
 
     @NotNull
-    private SwavalambanSevaKarya swavalamban;
+    private SwavalambanSevaDarshan swavalamban;
 
     @NotNull
-    private SamajikSevaKarya samajik;
-
+    private SamajikSevaDarshan samajik;
 
     @NotNull
     private String prant;
@@ -43,7 +42,8 @@ public class SevaKaryaDTO implements Serializable {
     @NotNull
     private String sevaVastiId;
 
-    private String shakhaId;
+    @NotNull
+    private String reportingPerson;
 
     @Nonnegative
     private int year;
@@ -56,64 +56,43 @@ public class SevaKaryaDTO implements Serializable {
 
     private Instant lastModifiedDate;
 
-    public SevaKaryaDTO() {
-
-    }
-
-    public SevaKaryaDTO(SevaKarya sevaKarya) {
-        this.id = sevaKarya.getId();
-        this.shiksha = sevaKarya.getShiksha();
-        this.aayogya = sevaKarya.getAayogya();
-        this.swavalamban = sevaKarya.getSwavalamban();
-        this.samajik = sevaKarya.getSamajik();
-        this.prant = sevaKarya.getPrant();
-        this.shakhaId = sevaKarya.getShakhaId();
-        this.vibhagId = sevaKarya.getVibhagId();
-        this.jillaId = sevaKarya.getJillaId();
-        this.talukaId = sevaKarya.getTalukaId();
-        this.createdBy = sevaKarya.getCreatedBy();
-        this.createdDate = sevaKarya.getCreatedDate();
-        this.lastModifiedBy = sevaKarya.getLastModifiedBy();
-        this.lastModifiedDate = sevaKarya.getLastModifiedDate();
-        this.sevaVastiId = sevaKarya.getSevaVastiId();
-        this.year = sevaKarya.getYear();
-    }
-
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
-    public ShikshaSevaKarya getShiksha() {
+
+    public ShikshaSevaDarshan getShiksha() {
         return shiksha;
     }
 
-    public void setShiksha(ShikshaSevaKarya shiksha) {
+    public void setShiksha(ShikshaSevaDarshan shiksha) {
         this.shiksha = shiksha;
     }
 
-    public AayogyaSevaKarya getAayogya() {
+    public AayogyaSevaDarshan getAayogya() {
         return aayogya;
     }
 
-    public void setAayogya(AayogyaSevaKarya aayogya) {
+    public void setAayogya(AayogyaSevaDarshan aayogya) {
         this.aayogya = aayogya;
     }
 
-    public SwavalambanSevaKarya getSwavalamban() {
+    public SwavalambanSevaDarshan getSwavalamban() {
         return swavalamban;
     }
 
-    public void setSwavalamban(SwavalambanSevaKarya swavalamban) {
+    public void setSwavalamban(SwavalambanSevaDarshan swavalamban) {
         this.swavalamban = swavalamban;
     }
 
-    public SamajikSevaKarya getSamajik() {
+    public SamajikSevaDarshan getSamajik() {
         return samajik;
     }
 
-    public void setSamajik(SamajikSevaKarya samajik) {
+    public void setSamajik(SamajikSevaDarshan samajik) {
         this.samajik = samajik;
     }
 
@@ -157,12 +136,12 @@ public class SevaKaryaDTO implements Serializable {
         this.sevaVastiId = sevaVastiId;
     }
 
-    public String getShakhaId() {
-        return shakhaId;
+    public String getReportingPerson() {
+        return reportingPerson;
     }
 
-    public void setShakhaId(String shakhaId) {
-        this.shakhaId = shakhaId;
+    public void setReportingPerson(String reportingPerson) {
+        this.reportingPerson = reportingPerson;
     }
 
     public int getYear() {
@@ -205,9 +184,32 @@ public class SevaKaryaDTO implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public SevaDarshanDTO() {
+
+    }
+
+    public SevaDarshanDTO(SevaDarshan sevaDarshan) {
+        this.id = sevaDarshan.getId();
+        this.shiksha = sevaDarshan.getShiksha();
+        this.aayogya = sevaDarshan.getAayogya();
+        this.swavalamban = sevaDarshan.getSwavalamban();
+        this.samajik = sevaDarshan.getSamajik();
+        this.reportingPerson = sevaDarshan.getReportingPerson();
+        this.prant = sevaDarshan.getPrant();
+        this.vibhagId = sevaDarshan.getVibhagId();
+        this.jillaId = sevaDarshan.getJillaId();
+        this.talukaId = sevaDarshan.getTalukaId();
+        this.createdBy = sevaDarshan.getCreatedBy();
+        this.createdDate = sevaDarshan.getCreatedDate();
+        this.lastModifiedBy = sevaDarshan.getLastModifiedBy();
+        this.lastModifiedDate = sevaDarshan.getLastModifiedDate();
+        this.sevaVastiId = sevaDarshan.getSevaVastiId();
+        this.year = sevaDarshan.getYear();
+    }
+
     @Override
     public String toString() {
-        return "SevaKaryaDTO{" +
+        return "SevaDarshanDTO{" +
                 "shiksha='" + shiksha + '\'' +
                 ", aayogya='" + aayogya + '\'' +
                 ", swavalamban='" + swavalamban + '\'' +
@@ -217,7 +219,7 @@ public class SevaKaryaDTO implements Serializable {
                 ", jillaId='" + jillaId + '\'' +
                 ", talukaId='" + talukaId + '\'' +
                 ", sevaVastiId='" + sevaVastiId + '\'' +
-                ", shakhaId='" + shakhaId + '\'' +
+                ", reportingPerson='" + reportingPerson + '\'' +
                 ", year=" + year +
                 ", createdBy=" + createdBy +
                 ", createdDate=" + createdDate +

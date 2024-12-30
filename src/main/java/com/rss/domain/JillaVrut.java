@@ -200,7 +200,7 @@ public class JillaVrut extends AbstractAuditingEntity<String> implements Seriali
         if (this == o) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(o instanceof JillaVrut)) {
             return false;
         }
         return id != null && id.equals(((JillaVrut) o).id);

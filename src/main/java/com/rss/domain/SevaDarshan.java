@@ -6,18 +6,18 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import com.rss.service.dto.Aayogya;
-import com.rss.service.dto.Samajik;
-import com.rss.service.dto.Shiksha;
-import com.rss.service.dto.Swavalamban;
+import com.rss.service.dto.AayogyaSevaDarshan;
+import com.rss.service.dto.SamajikSevaDarshan;
+import com.rss.service.dto.ShikshaSevaDarshan;
+import com.rss.service.dto.SwavalambanSevaDarshan;
 
 import jakarta.validation.constraints.NotNull;
 
 /**
- * A SevaUpkram.
+ * A SevaDarshan.
  */
-@org.springframework.data.mongodb.core.mapping.Document(collection = "jhi_sevaUpkram")
-public class SevaUpkram extends AbstractAuditingEntity<String> implements Serializable {
+@org.springframework.data.mongodb.core.mapping.Document(collection = "jhi_sevaDarshan")
+public class SevaDarshan extends AbstractAuditingEntity<String> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,19 +26,19 @@ public class SevaUpkram extends AbstractAuditingEntity<String> implements Serial
 
     @NotNull
     @Field("shiksha")
-    private Shiksha shiksha;
+    private ShikshaSevaDarshan shiksha;
 
     @NotNull
     @Field("aayogya")
-    private Aayogya aayogya;
+    private AayogyaSevaDarshan aayogya;
 
     @NotNull
     @Field("swavalamban")
-    private Swavalamban swavalamban;
+    private SwavalambanSevaDarshan swavalamban;
 
     @NotNull
     @Field("samajik")
-    private Samajik samajik;
+    private SamajikSevaDarshan samajik;
 
     @NotNull
     @Field("prant")
@@ -60,9 +60,8 @@ public class SevaUpkram extends AbstractAuditingEntity<String> implements Serial
     @Field("sevaVastiId")
     private String sevaVastiId;
 
-    @NotNull
-    @Field("month")
-    private String month;
+    @Field("reportingPerson")
+    private String reportingPerson;
 
     @NotNull
     @Field("year")
@@ -76,35 +75,35 @@ public class SevaUpkram extends AbstractAuditingEntity<String> implements Serial
         this.id = id;
     }
 
-    public Shiksha getShiksha() {
+    public ShikshaSevaDarshan getShiksha() {
         return shiksha;
     }
 
-    public void setShiksha(Shiksha shiksha) {
+    public void setShiksha(ShikshaSevaDarshan shiksha) {
         this.shiksha = shiksha;
     }
 
-    public Aayogya getAayogya() {
+    public AayogyaSevaDarshan getAayogya() {
         return aayogya;
     }
 
-    public void setAayogya(Aayogya aayogya) {
+    public void setAayogya(AayogyaSevaDarshan aayogya) {
         this.aayogya = aayogya;
     }
 
-    public Swavalamban getSwavalamban() {
+    public SwavalambanSevaDarshan getSwavalamban() {
         return swavalamban;
     }
 
-    public void setSwavalamban(Swavalamban swavalamban) {
+    public void setSwavalamban(SwavalambanSevaDarshan swavalamban) {
         this.swavalamban = swavalamban;
     }
 
-    public Samajik getSamajik() {
+    public SamajikSevaDarshan getSamajik() {
         return samajik;
     }
 
-    public void setSamajik(Samajik samajik) {
+    public void setSamajik(SamajikSevaDarshan samajik) {
         this.samajik = samajik;
     }
 
@@ -148,12 +147,12 @@ public class SevaUpkram extends AbstractAuditingEntity<String> implements Serial
         this.sevaVastiId = sevaVastiId;
     }
 
-    public String getMonth() {
-        return month;
+    public String getReportingPerson() {
+        return reportingPerson;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
+    public void setReportingPerson(String reportingPerson) {
+        this.reportingPerson = reportingPerson;
     }
 
     public int getYear() {
@@ -169,10 +168,10 @@ public class SevaUpkram extends AbstractAuditingEntity<String> implements Serial
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SevaUpkram)) {
+        if (!(o instanceof SevaDarshan)) {
             return false;
         }
-        return id != null && id.equals(((SevaUpkram) o).id);
+        return id != null && id.equals(((SevaDarshan) o).id);
     }
 
     @Override
@@ -183,7 +182,7 @@ public class SevaUpkram extends AbstractAuditingEntity<String> implements Serial
     // prettier-ignore
     @Override
     public String toString() {
-        return "SevaUpkram{" +
+        return "SevaDarshan{" +
                 "shiksha='" + shiksha + '\'' +
                 ", aayogya='" + aayogya + '\'' +
                 ", swavalamban='" + swavalamban + '\'' +
@@ -193,7 +192,7 @@ public class SevaUpkram extends AbstractAuditingEntity<String> implements Serial
                 ", jillaId='" + jillaId + '\'' +
                 ", talukaId='" + talukaId + '\'' +
                 ", sevaVastiId='" + sevaVastiId + '\'' +
-                ", month='" + month + '\'' +
+                ", reportingPerson='" + reportingPerson + '\'' +
                 ", year=" + year +
                 "}";
     }

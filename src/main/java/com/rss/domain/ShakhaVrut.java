@@ -151,7 +151,7 @@ public class ShakhaVrut extends AbstractAuditingEntity<String> implements Serial
         if (this == o) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(o instanceof ShakhaVrut)) {
             return false;
         }
         return id != null && id.equals(((ShakhaVrut) o).id);
