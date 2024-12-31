@@ -60,6 +60,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpHeaders;
 
 /**
  * REST controller for managing the current user's account.
@@ -486,6 +487,15 @@ public class AccountResource {
            return s3FileUploadService.uploadFile(file.getOriginalFilename(), file);
         } catch (IOException e) {
             return null;
+        }
+    }
+    @GetMapping(value = "/download")
+    public ResponseEntity<?> downloadFile(@RequestParam("key") String key) throws IOException{
+        Object response = s3FileUploadService.downloadFile(key);
+        if (response != null){
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + key + "\"").body(response);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
     @PostMapping("/sevaDarshan")
