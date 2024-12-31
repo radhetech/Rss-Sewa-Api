@@ -42,9 +42,9 @@ public class SevaDarshanService {
 
     }
 
-    public List<SevaDarshan> findBySevaDarshanByVastiIdAndYear(String vastiId, int year) {
+    // public List<SevaDarshan> findBySevaDarshanByVastiIdAndYear(String vastiId, int year) {
 
-        return sevaDarshanRepository.findBySevaVastiIdAndYear(vastiId, year);
-    }
+    //     return sevaDarshanRepository.findBySevaVastiIdAndYear(vastiId, year);
+    // }
 
 }

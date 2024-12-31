@@ -12,6 +12,7 @@ import com.rss.domain.Taluka;
 import com.rss.domain.User;
 import com.rss.domain.Vibhag;
 import com.rss.repository.JillaRepository;
+import com.rss.repository.SevaDarshanRepository;
 import com.rss.repository.SevaKaryaRepository;
 import com.rss.repository.SevaVastiRepository;
 import com.rss.repository.ShakhaRepository;
@@ -118,12 +119,14 @@ public class AccountResource {
 
     private final SevaDarshanService sevaDarshanService;
 
+    private final SevaDarshanRepository sevaDarshanRepository;
+
      
 
 
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,VibhagService vibhagService,JillaService jillaService,TalukaService talukaService,SevaVastiService sevaVastiService,ShakhaService shakhaService,ShakhaVrutService shakhaVrutService,JillaVrutService jillaVrutService,
                             SevaUpkramService sevaUpkramService,SevaKaryaService sevaKaryaService,SevaVastiRepository sevaVastiRepository,ShakhaRepository shakhaRepository,JillaRepository jillaRepository, TalukaRepository talukaRepository,SevaKaryaRepository sevaKaryaRepository,VibhagRepository vibhagRepository,
-                            ShakhaVrutRepository shakhaVrutRepository,S3FileUploadService s3FileUploadService,SevaDarshanService sevaDarshanService) {
+                            ShakhaVrutRepository shakhaVrutRepository,S3FileUploadService s3FileUploadService,SevaDarshanService sevaDarshanService,SevaDarshanRepository sevaDarshanRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -145,6 +148,7 @@ public class AccountResource {
         this.shakhaVrutRepository = shakhaVrutRepository;
         this.s3FileUploadService = s3FileUploadService;
         this.sevaDarshanService = sevaDarshanService;
+        this.sevaDarshanRepository = sevaDarshanRepository;
     }
 
     /**
@@ -279,6 +283,38 @@ public class AccountResource {
         );
     }
 
+    @GetMapping("/getUserList")
+    public List<User> getUserList(@RequestParam(name = "vibhagId", required = false) Optional<String> vibhagId,
+            @RequestParam(name = "jillaId", required = false) Optional<String> jillaId,
+            @RequestParam(name = "talukaId", required = false) Optional<String> talukaId) {
+        if (vibhagId.isPresent() && jillaId.isPresent() && talukaId.isPresent()) {
+            return userRepository
+                    .findAllByIdNotNullAndActivatedIsTrueAndVibhagIdAndJillaIdAndTalukaId(vibhagId, jillaId, talukaId)
+                    .stream().toList();
+        } else if (vibhagId.isPresent() && jillaId.isPresent()) {
+            return userRepository.findAllByIdNotNullAndActivatedIsTrueAndVibhagIdAndJillaId(vibhagId, jillaId)
+                    .stream().toList();
+        } else if (jillaId.isPresent() && talukaId.isPresent()) {
+            return userRepository.findAllByIdNotNullAndActivatedIsTrueAndJillaIdAndTalukaId(jillaId, talukaId)
+                    .stream().toList();
+        } else if (vibhagId.isPresent() && talukaId.isPresent()) {
+            return userRepository.findAllByIdNotNullAndActivatedIsTrueAndVibhagIdAndTalukaId(vibhagId, talukaId)
+                    .stream().toList();
+        } else if (vibhagId.isPresent()) {
+            return userRepository.findAllByIdNotNullAndActivatedIsTrueAndVibhagId(vibhagId)
+                    .stream().toList();
+        } else if (jillaId.isPresent()) {
+            return userRepository.findAllByIdNotNullAndActivatedIsTrueAndJillaId(jillaId)
+                    .stream().toList();
+        } else if (talukaId.isPresent()) {
+            return userRepository.findAllByIdNotNullAndActivatedIsTrueAndTalukaId(talukaId)
+                    .stream().toList();
+        } else {
+            return userRepository.findAllByIdNotNullAndActivatedIsTrue()
+                    .stream().toList();
+        }
+    }
+
     @GetMapping("/getVibhag")
     public List<Vibhag> getVibhag() {
         return vibhagService
@@ -402,16 +438,17 @@ public class AccountResource {
     public List<SummaryReportDTO> getSevaKaryaByVastiIdAndYear(@PathVariable("vibhagId") String vibhagId) {
         List<SummaryReportDTO> summaryReportList = new ArrayList<SummaryReportDTO>();
 
-        Optional<Vibhag> vibhag = vibhagRepository.findByVibhagId(vibhagId);
-
+        Vibhag vibhag = vibhagRepository.findByVibhagId(vibhagId)
+                .orElseThrow(() -> new AccountResourceException("Vibhag could not be found"));
+        ;
         List<Jilla> jillaList = jillaRepository.findByVibhagID(vibhagId);
 
         for (Jilla jilla : jillaList) {
             SummaryReportDTO srD = new SummaryReportDTO();
-            if(vibhag.get().getIsMahanagar()){
-               srD.setMahaNagarCount(1); 
-            }else{
-                srD.setMahaNagarCount(0); 
+            if (vibhag.getIsMahanagar()) {
+                srD.setMahaNagarCount(1);
+            } else {
+                srD.setMahaNagarCount(0);
             }
             srD.setJillaName(jilla.getJillaName());
             List<Taluka> talukas = talukaRepository.findByJillaId(jilla.getJillaId());
@@ -419,25 +456,27 @@ public class AccountResource {
             int totalSevaVastiWithSevaKarya = 0;
             int monthlySevaVastiConnect = 0;
             for (Taluka taluka : talukas) {
-                List<SevaVasti> sevaVastiList  = this.sevaVastiRepository.findByTalukaId(taluka.getTalukaId());
+                List<SevaVasti> sevaVastiList = this.sevaVastiRepository.findByTalukaId(taluka.getTalukaId());
                 totalSevaVasti = totalSevaVasti + sevaVastiList.size();
                 for (SevaVasti sevaVasti : sevaVastiList) {
-                    totalSevaVastiWithSevaKarya = totalSevaVastiWithSevaKarya + this.sevaKaryaRepository.findBySevaVastiIdAndYear(sevaVasti.getSevaVastiId(), Year.now().getValue()).size();
-                   List<ShakhaVrut> shakhaVrutlst =  this.shakhaVrutRepository.findByVastiId(sevaVasti.getSevaVastiId());
-                   for (ShakhaVrut ShakhaVrut : shakhaVrutlst) {
-                    if(ShakhaVrut.getSelectedCategory().equalsIgnoreCase("M")){
-                        monthlySevaVastiConnect = monthlySevaVastiConnect+1; 
+                    totalSevaVastiWithSevaKarya = totalSevaVastiWithSevaKarya + this.sevaKaryaRepository
+                            .findBySevaVastiIdAndYear(sevaVasti.getSevaVastiId(), Year.now().getValue()).size();
+                    List<ShakhaVrut> shakhaVrutlst = this.shakhaVrutRepository
+                            .findByVastiId(sevaVasti.getSevaVastiId());
+                    for (ShakhaVrut ShakhaVrut : shakhaVrutlst) {
+                        if (ShakhaVrut.getSelectedCategory().equalsIgnoreCase("M")) {
+                            monthlySevaVastiConnect = monthlySevaVastiConnect + 1;
+                        }
                     }
-                   }
                 }
-                
+
             }
             srD.setMonthlyvastiContactBranchandMeetingNumber(monthlySevaVastiConnect);
             srD.setTotalVastiWithSevaKarya(totalSevaVastiWithSevaKarya);
             srD.setSevaVastiCount(totalSevaVasti);
             summaryReportList.add(srD);
         }
-        //System.out.println("jillaList" + jillaList.size());
+        // System.out.println("jillaList" + jillaList.size());
         return summaryReportList;
     }
 
@@ -456,9 +495,22 @@ public class AccountResource {
                 sevaDarshanService.saveUpdateSevaDarshan(sevaDarshanDTO);
         return new ResponseEntity<>("Seva Darshan Created", HttpStatus.OK);
     }
-    @GetMapping("/getSevaDarshan/{vastiId}/{year}")
-    public List<SevaDarshan> getSevaDarshanByVastiIdAndYear(@PathVariable("vastiId") String vastiId,@PathVariable("year") String year) {
-        return sevaDarshanService.findBySevaDarshanByVastiIdAndYear(vastiId,Integer.parseInt(year))
+    @GetMapping("/getSevaDarshan/{vibhagId}/{year}")
+    public List<SevaDarshan> getSevaDarshanByVastiIdAndYear(@PathVariable("vibhagId") String vibhagId,@PathVariable("year") String year,
+    @RequestParam(name = "jillaId", required = false) Optional<String> jillaId,
+    @RequestParam(name = "sevaVastiId", required = false) Optional<String> sevaVastiId) {
+        if(jillaId.isPresent() && sevaVastiId.isPresent()){
+            return sevaDarshanRepository.findByVibhagIdAndJillaIdAndSevaVastiIdAndYear(vibhagId,jillaId,sevaVastiId,Integer.parseInt(year))
             .stream().toList();
+        }else if(jillaId.isPresent()){
+            return sevaDarshanRepository.findByVibhagIdAndJillaIdAndYear(vibhagId,jillaId,Integer.parseInt(year))
+            .stream().toList();
+        }else if(sevaVastiId.isPresent()){
+            return sevaDarshanRepository.findByVibhagIdAndSevaVastiIdAndYear(vibhagId,sevaVastiId,Integer.parseInt(year))
+            .stream().toList();
+        }else{
+            return sevaDarshanRepository.findByVibhagIdAndYear(vibhagId,Integer.parseInt(year))
+            .stream().toList();
+        }
     }
 }
