@@ -64,7 +64,7 @@ public class InitialSetupMigration {
         userUser.setPassword("$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K");
         userUser.setFirstName("User");
         userUser.setLastName("User");
-        userUser.setEmail("user@localhost");
+        //userUser.setEmail("user@localhost");
         userUser.setActivated(true);
         userUser.setLangKey("en");
         userUser.setCreatedBy(Constants.SYSTEM);
@@ -80,7 +80,7 @@ public class InitialSetupMigration {
         adminUser.setPassword("$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC");
         adminUser.setFirstName("admin");
         adminUser.setLastName("Administrator");
-        adminUser.setEmail("admin@localhost");
+        //adminUser.setEmail("admin@localhost");
         adminUser.setActivated(true);
         adminUser.setLangKey("en");
         adminUser.setCreatedBy(Constants.SYSTEM);
