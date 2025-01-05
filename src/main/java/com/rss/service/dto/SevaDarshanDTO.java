@@ -2,6 +2,7 @@ package com.rss.service.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Map;
 
 import javax.annotation.Nonnegative;
 
@@ -31,16 +32,16 @@ public class SevaDarshanDTO implements Serializable {
     private String prant;
 
     @NotNull
-    private String vibhagId;
+    private Map vibhag;
 
     @NotNull
-    private String jillaId;
+    private Map jilla;
 
     @NotNull
-    private String talukaId;
+    private Map taluka;
 
     @NotNull
-    private String sevaVastiId;
+    private Map sevaVasti;
 
     @NotNull
     private String reportingPerson;
@@ -103,43 +104,35 @@ public class SevaDarshanDTO implements Serializable {
     public void setPrant(String prant) {
         this.prant = prant;
     }
-
-    public String getVibhagId() {
-        return vibhagId;
+    public Map getVibhag() {
+        return vibhag;
+    }
+    public void setVibhag(Map vibhag) {
+        this.vibhag = vibhag;
+    }
+    public Map getJilla() {
+        return jilla;
+    }
+    public void setJilla(Map jilla) {
+        this.jilla = jilla;
+    }
+    public Map getTaluka() {
+        return taluka;
+    }
+    public void setTaluka(Map taluka) {
+        this.taluka = taluka;
+    }
+    public Map getSevaVasti() {
+        return sevaVasti;
     }
 
-    public void setVibhagId(String vibhagId) {
-        this.vibhagId = vibhagId;
-    }
-
-    public String getJillaId() {
-        return jillaId;
-    }
-
-    public void setJillaId(String jillaId) {
-        this.jillaId = jillaId;
-    }
-
-    public String getTalukaId() {
-        return talukaId;
-    }
-
-    public void setTalukaId(String talukaId) {
-        this.talukaId = talukaId;
-    }
-
-    public String getSevaVastiId() {
-        return sevaVastiId;
-    }
-
-    public void setSevaVastiId(String sevaVastiId) {
-        this.sevaVastiId = sevaVastiId;
+    public void setSevaVasti(Map sevaVasti) {
+        this.sevaVasti = sevaVasti;
     }
 
     public String getReportingPerson() {
         return reportingPerson;
     }
-
     public void setReportingPerson(String reportingPerson) {
         this.reportingPerson = reportingPerson;
     }
@@ -196,14 +189,14 @@ public class SevaDarshanDTO implements Serializable {
         this.samajik = sevaDarshan.getSamajik();
         this.reportingPerson = sevaDarshan.getReportingPerson();
         this.prant = sevaDarshan.getPrant();
-        this.vibhagId = sevaDarshan.getVibhagId();
-        this.jillaId = sevaDarshan.getJillaId();
-        this.talukaId = sevaDarshan.getTalukaId();
+        this.vibhag = sevaDarshan.getVibhag();
+        this.jilla = sevaDarshan.getJilla();
+        this.taluka = sevaDarshan.getTaluka();
         this.createdBy = sevaDarshan.getCreatedBy();
         this.createdDate = sevaDarshan.getCreatedDate();
         this.lastModifiedBy = sevaDarshan.getLastModifiedBy();
         this.lastModifiedDate = sevaDarshan.getLastModifiedDate();
-        this.sevaVastiId = sevaDarshan.getSevaVastiId();
+        this.sevaVasti = sevaDarshan.getSevaVasti();
         this.year = sevaDarshan.getYear();
     }
 
@@ -215,10 +208,10 @@ public class SevaDarshanDTO implements Serializable {
                 ", swavalamban='" + swavalamban + '\'' +
                 ", samajik='" + samajik + '\'' +
                 ", prant='" + prant + '\'' +
-                ", vibhagId='" + vibhagId + '\'' +
-                ", jillaId='" + jillaId + '\'' +
-                ", talukaId='" + talukaId + '\'' +
-                ", sevaVastiId='" + sevaVastiId + '\'' +
+                ", vibhag='" + vibhag + '\'' +
+                ", jilla='" + jilla + '\'' +
+                ", taluka='" + taluka + '\'' +
+                ", sevaVasti='" + sevaVasti + '\'' +
                 ", reportingPerson='" + reportingPerson + '\'' +
                 ", year=" + year +
                 ", createdBy=" + createdBy +

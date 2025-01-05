@@ -32,10 +32,10 @@ public class SevaDarshanService {
         sevaDarshan.setSwavalamban(sevaDarshanDTO.getSwavalamban());
         sevaDarshan.setSamajik(sevaDarshanDTO.getSamajik());
         sevaDarshan.setPrant(sevaDarshanDTO.getPrant());
-        sevaDarshan.setVibhagId(sevaDarshanDTO.getVibhagId());
-        sevaDarshan.setJillaId(sevaDarshanDTO.getJillaId());
-        sevaDarshan.setTalukaId(sevaDarshanDTO.getTalukaId());
-        sevaDarshan.setSevaVastiId(sevaDarshanDTO.getSevaVastiId());
+        sevaDarshan.setVibhag(sevaDarshanDTO.getVibhag());
+        sevaDarshan.setJilla(sevaDarshanDTO.getJilla());
+        sevaDarshan.setTaluka(sevaDarshanDTO.getTaluka());
+        sevaDarshan.setSevaVasti(sevaDarshanDTO.getSevaVasti());
         sevaDarshan.setReportingPerson(sevaDarshanDTO.getReportingPerson());
         sevaDarshan.setYear(sevaDarshanDTO.getYear());
         sevaDarshanRepository.save(sevaDarshan);

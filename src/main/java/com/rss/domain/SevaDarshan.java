@@ -1,7 +1,7 @@
 package com.rss.domain;
 
 import java.io.Serializable;
-
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -45,20 +45,20 @@ public class SevaDarshan extends AbstractAuditingEntity<String> implements Seria
     private String prant;
 
     @NotNull
-    @Field("vibhagId")
-    private String vibhagId;
+    @Field("vibhag")
+    private Map vibhag;
 
     @NotNull
-    @Field("jillaId")
-    private String jillaId;
+    @Field("jilla")
+    private Map jilla;
 
     @NotNull
-    @Field("talukaId")
-    private String talukaId;
+    @Field("taluka")
+    private Map taluka;
 
     @NotNull
-    @Field("sevaVastiId")
-    private String sevaVastiId;
+    @Field("sevaVasti")
+    private Map sevaVasti;
 
     @Field("reportingPerson")
     private String reportingPerson;
@@ -110,47 +110,36 @@ public class SevaDarshan extends AbstractAuditingEntity<String> implements Seria
     public String getPrant() {
         return prant;
     }
-
     public void setPrant(String prant) {
         this.prant = prant;
     }
-
-    public String getVibhagId() {
-        return vibhagId;
+    public Map getVibhag() {
+        return vibhag;
     }
-
-    public void setVibhagId(String vibhagId) {
-        this.vibhagId = vibhagId;
+    public void setVibhag(Map vibhag) {
+        this.vibhag = vibhag;
     }
-
-    public String getJillaId() {
-        return jillaId;
+    public Map getJilla() {
+        return jilla;
     }
-
-    public void setJillaId(String jillaId) {
-        this.jillaId = jillaId;
+    public void setJilla(Map jilla) {
+        this.jilla = jilla;
     }
-
-    public String getTalukaId() {
-        return talukaId;
+    public Map getTaluka() {
+        return taluka;
     }
-
-    public void setTalukaId(String talukaId) {
-        this.talukaId = talukaId;
+    public void setTaluka(Map taluka) {
+        this.taluka = taluka;
     }
-
-    public String getSevaVastiId() {
-        return sevaVastiId;
+    public Map getSevaVasti() {
+        return sevaVasti;
     }
-
-    public void setSevaVastiId(String sevaVastiId) {
-        this.sevaVastiId = sevaVastiId;
+    public void setSevaVasti(Map sevaVasti) {
+        this.sevaVasti = sevaVasti;
     }
-
     public String getReportingPerson() {
         return reportingPerson;
     }
-
     public void setReportingPerson(String reportingPerson) {
         this.reportingPerson = reportingPerson;
     }
@@ -188,10 +177,10 @@ public class SevaDarshan extends AbstractAuditingEntity<String> implements Seria
                 ", swavalamban='" + swavalamban + '\'' +
                 ", samajik='" + samajik + '\'' +
                 ", prant='" + prant + '\'' +
-                ", vibhagId='" + vibhagId + '\'' +
-                ", jillaId='" + jillaId + '\'' +
-                ", talukaId='" + talukaId + '\'' +
-                ", sevaVastiId='" + sevaVastiId + '\'' +
+                ", vibhag='" + vibhag + '\'' +
+                ", jilla='" + jilla + '\'' +
+                ", taluka='" + taluka + '\'' +
+                ", sevaVasti='" + sevaVasti + '\'' +
                 ", reportingPerson='" + reportingPerson + '\'' +
                 ", year=" + year +
                 "}";
