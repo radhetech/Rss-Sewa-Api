@@ -25,6 +25,9 @@ public class SevaVasti implements Serializable {
     @Field("talukaId")
     private String talukaId;
 
+    @NotNull
+    @Field("fiveKUp")
+    private boolean isFiveKUp;
 
     public String getSevaVastiId() {
         return sevaVastiId;
@@ -49,6 +52,15 @@ public class SevaVasti implements Serializable {
     public void setTalukaId(String talukaId) {
         this.talukaId = talukaId;
     }
+    
+    public boolean isFiveKUp() {
+        return isFiveKUp;
+    }
+
+    public void setFiveKUp(boolean isFiveKUp) {
+        this.isFiveKUp = isFiveKUp;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -75,6 +87,7 @@ public class SevaVasti implements Serializable {
                 "sevaVastiId='" + sevaVastiId + '\'' +
                 ",sevaVastiName='" + sevaVastiName + '\'' +
                 ",talukaId='" + talukaId + '\'' +
+                ",isFiveKUp='" + isFiveKUp + '\'' +
                 "}";
     }
 

@@ -20,6 +20,9 @@ public class SevaVastiDTO implements Serializable {
     @NotNull
     private String talukaId;
 
+    @NotNull
+    private boolean fiveKUp;
+
     public String getSevaVastiId() {
         return sevaVastiId;
     }
@@ -44,6 +47,14 @@ public class SevaVastiDTO implements Serializable {
         this.talukaId = talukaId;
     }
 
+    public boolean isFiveKUp() {
+        return fiveKUp;
+    }
+
+    public void setFiveKUp(boolean fiveKUp) {
+        this.fiveKUp = fiveKUp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -64,7 +75,7 @@ public class SevaVastiDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "SevaVastiDTO [sevaVastiId=" + sevaVastiId + ", sevaVastiName=" + sevaVastiName + ", talukaId="
+        return "SevaVastiDTO [sevaVastiId=" + sevaVastiId + ", sevaVastiName=" + sevaVastiName+ ", fiveKUp=" + fiveKUp + ", talukaId="
                 + talukaId + "]";
     }
 

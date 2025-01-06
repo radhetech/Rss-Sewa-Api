@@ -33,6 +33,7 @@ public class SevaVastiService {
         sevaVasti.setSevaVastiName(sevaVastiDTO.getSevaVastiName());
         sevaVasti.setTalukaId(sevaVastiDTO.getTalukaId());
         sevaVasti.setSevaVastiId(sevaVastiDTO.getSevaVastiId());
+        sevaVasti.setFiveKUp(sevaVastiDTO.isFiveKUp());
         return sevaVastiRepository.save(sevaVasti);
 
     }
